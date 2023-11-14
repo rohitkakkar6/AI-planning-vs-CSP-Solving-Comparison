@@ -2,17 +2,19 @@
 	(:domain sudokuv)
 	(:objects
     	one two three four five six seven eight nine - digit
-	    cell1 cell2 cell3 cell4 cell5 cell6 cell7 cell8 cell9 - cell
+	    cell00 cell01 cell02 - cell
+		cell10 cell11 cell12 - cell
+		cell20 cell21 cell22 - cell
 	)
 
 	(:init
-		(filled cell1 two)
+		(filled cell00 two)
 		(not (is-available two))
-		(filled cell2 four)
+		(filled cell01 four)
 		(not (is-available four))
-		(filled cell3 six)
+		(filled cell02 six)
 		(not (is-available six))
-		(filled cell4 eight)
+		(filled cell10 eight)
 		(not (is-available eight))
 
 		(is-available one)
@@ -21,23 +23,23 @@
 		(is-available seven)
 		(is-available nine)
 		
-		(empty cell5)
-		(empty cell6)
-		(empty cell7)
-		(empty cell8)
-		(empty cell9)
+		(empty cell11)
+		(empty cell12)
+		(empty cell20)
+		(empty cell21)
+		(empty cell22)
 	)
 	(:goal
         (and
-          (not (empty cell1))
-          (not (empty cell2))
-          (not (empty cell3))
-          (not (empty cell4))
-          (not (empty cell5))
-          (not (empty cell6))
-          (not (empty cell7))
-          (not (empty cell8))
-          (not (empty cell9))
+          (not (empty cell00))
+          (not (empty cell01))
+          (not (empty cell02))
+          (not (empty cell10))
+          (not (empty cell11))
+          (not (empty cell12))
+          (not (empty cell20))
+          (not (empty cell21))
+          (not (empty cell22))
 		)
     )
 )
