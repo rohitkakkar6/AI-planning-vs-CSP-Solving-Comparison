@@ -19,3 +19,7 @@ Ran Z3 solver on an altered file for Sudoku trying a 3x3 for proof of concept an
 November 13, 2023
 
 Tried multiple different approaches of using the fast-downward planner, finally got it working
+
+Novemeber 14, 2023
+
+Tried a different implementation of the 3x3 PDDL model, finally got it working
