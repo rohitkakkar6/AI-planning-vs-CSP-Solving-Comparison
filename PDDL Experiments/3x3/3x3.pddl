@@ -1,5 +1,5 @@
 (define (domain sudokuv)
-  (:requirements :strips ::typing)
+  (:requirements :strips :typing)
   (:types
     digit cell
   )
