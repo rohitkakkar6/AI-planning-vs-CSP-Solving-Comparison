@@ -17,6 +17,10 @@
 	)
 
 	(:init
+		(BelongColumn ?col ?c)
+		
+
+
 		(filled cell00 nine)
 		(filled cell20 two)
 		(filled cell01 one)
