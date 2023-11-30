@@ -15,3 +15,7 @@ Researched Constraint Satisfaction Problems through Artificial Intelligence Prin
 November 2, 2023 
 
 Ran Z3 solver on an altered file for Sudoku trying a 3x3 for proof of concept and had to figure out how to use z3. Got it to run successfully.
+
+November 30, 2023
+
+Decided on splitting up the code to see the breaking point as running the full implementation timed out the planner resulting in no plans, tests on 1 row and 3 rows are successful
