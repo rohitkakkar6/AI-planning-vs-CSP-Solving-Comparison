@@ -6,7 +6,8 @@
 	    cell10 cell11 cell12 cell13 cell14 cell15 cell16 cell17 cell18 - cell
 	    cell20 cell21 cell22 cell23 cell24 cell25 cell26 cell27 cell28 - cell
 		cell30 cell31 cell32 cell33 cell34 cell35 cell36 cell37 cell38 - cell
-	    row0 row1 row2 row3 - row
+		cell40 cell41 cell42 cell43 cell44 cell45 cell46 cell47 cell48 - cell
+	    row0 row1 row2 row3 row4 - row
 	    column0 column1 column2 column3 column4 column5 column6 column7 column8 - column
 	    subgrid0 subgrid1 subgrid2 subgrid3 subgrid4 subgrid5 - subgrid
 	)
@@ -17,23 +18,24 @@
         (BelongRow row1 cell10) (BelongRow row1 cell11) (BelongRow row1 cell12) (BelongRow row1 cell13) (BelongRow row1 cell14) (BelongRow row1 cell15) (BelongRow row1 cell16) (BelongRow row1 cell17) (BelongRow row1 cell18)
         (BelongRow row2 cell20) (BelongRow row2 cell21) (BelongRow row2 cell22) (BelongRow row2 cell23) (BelongRow row2 cell24) (BelongRow row2 cell25) (BelongRow row2 cell26) (BelongRow row2 cell27) (BelongRow row2 cell28)
         (BelongRow row3 cell30) (BelongRow row3 cell31) (BelongRow row3 cell32) (BelongRow row3 cell33) (BelongRow row3 cell34) (BelongRow row3 cell35) (BelongRow row3 cell36) (BelongRow row3 cell37) (BelongRow row3 cell38)
+        (BelongRow row4 cell40) (BelongRow row4 cell41) (BelongRow row4 cell42) (BelongRow row4 cell43) (BelongRow row4 cell44) (BelongRow row4 cell45) (BelongRow row4 cell46) (BelongRow row4 cell47) (BelongRow row4 cell48)
         
-		(BelongColumn column0 cell00) (BelongColumn column0 cell10) (BelongColumn column0 cell20) (BelongColumn column0 cell30)
-		(BelongColumn column1 cell01) (BelongColumn column1 cell11) (BelongColumn column1 cell21) (BelongColumn column1 cell31) 
-		(BelongColumn column2 cell02) (BelongColumn column2 cell12) (BelongColumn column2 cell22) (BelongColumn column2 cell32) 
-		(BelongColumn column3 cell03) (BelongColumn column3 cell13) (BelongColumn column3 cell23) (BelongColumn column3 cell33) 
-		(BelongColumn column4 cell04) (BelongColumn column4 cell14) (BelongColumn column4 cell24) (BelongColumn column4 cell34) 
-		(BelongColumn column5 cell05) (BelongColumn column5 cell15) (BelongColumn column5 cell25) (BelongColumn column5 cell35) 
-		(BelongColumn column6 cell06) (BelongColumn column6 cell16) (BelongColumn column6 cell26) (BelongColumn column6 cell36) 
-		(BelongColumn column7 cell07) (BelongColumn column7 cell17) (BelongColumn column7 cell27) (BelongColumn column7 cell37) 
-		(BelongColumn column8 cell08) (BelongColumn column8 cell18) (BelongColumn column8 cell28) (BelongColumn column8 cell38)
+		(BelongColumn column0 cell00) (BelongColumn column0 cell10) (BelongColumn column0 cell20) (BelongColumn column0 cell30) (BelongColumn column0 cell40)
+		(BelongColumn column1 cell01) (BelongColumn column1 cell11) (BelongColumn column1 cell21) (BelongColumn column1 cell31) (BelongColumn column1 cell41) 
+		(BelongColumn column2 cell02) (BelongColumn column2 cell12) (BelongColumn column2 cell22) (BelongColumn column2 cell32) (BelongColumn column2 cell42) 
+		(BelongColumn column3 cell03) (BelongColumn column3 cell13) (BelongColumn column3 cell23) (BelongColumn column3 cell33) (BelongColumn column3 cell43) 
+		(BelongColumn column4 cell04) (BelongColumn column4 cell14) (BelongColumn column4 cell24) (BelongColumn column4 cell34) (BelongColumn column4 cell44) 
+		(BelongColumn column5 cell05) (BelongColumn column5 cell15) (BelongColumn column5 cell25) (BelongColumn column5 cell35) (BelongColumn column5 cell45) 
+		(BelongColumn column6 cell06) (BelongColumn column6 cell16) (BelongColumn column6 cell26) (BelongColumn column6 cell36) (BelongColumn column6 cell46) 
+		(BelongColumn column7 cell07) (BelongColumn column7 cell17) (BelongColumn column7 cell27) (BelongColumn column7 cell37) (BelongColumn column7 cell47) 
+		(BelongColumn column8 cell08) (BelongColumn column8 cell18) (BelongColumn column8 cell28) (BelongColumn column8 cell38) (BelongColumn column8 cell48)
 
 		(BelongSubgrid subgrid0 cell00) (BelongSubgrid subgrid0 cell01) (BelongSubgrid subgrid0 cell02) (BelongSubgrid subgrid0 cell10) (BelongSubgrid subgrid0 cell11) (BelongSubgrid subgrid0 cell12) (BelongSubgrid subgrid0 cell20) (BelongSubgrid subgrid0 cell21) (BelongSubgrid subgrid0 cell22)
 		(BelongSubgrid subgrid1 cell03) (BelongSubgrid subgrid1 cell04) (BelongSubgrid subgrid1 cell05) (BelongSubgrid subgrid1 cell13) (BelongSubgrid subgrid1 cell14) (BelongSubgrid subgrid1 cell15) (BelongSubgrid subgrid1 cell23) (BelongSubgrid subgrid1 cell24) (BelongSubgrid subgrid1 cell25)
 		(BelongSubgrid subgrid2 cell06) (BelongSubgrid subgrid2 cell07) (BelongSubgrid subgrid2 cell08) (BelongSubgrid subgrid2 cell16) (BelongSubgrid subgrid2 cell17) (BelongSubgrid subgrid2 cell18) (BelongSubgrid subgrid2 cell26) (BelongSubgrid subgrid2 cell27) (BelongSubgrid subgrid2 cell28)
-		(BelongSubgrid subgrid3 cell30) (BelongSubgrid subgrid3 cell31) (BelongSubgrid subgrid3 cell32) 
-		(BelongSubgrid subgrid4 cell33) (BelongSubgrid subgrid4 cell34) (BelongSubgrid subgrid4 cell35) 
-		(BelongSubgrid subgrid5 cell36) (BelongSubgrid subgrid5 cell37) (BelongSubgrid subgrid5 cell38)
+		(BelongSubgrid subgrid3 cell30) (BelongSubgrid subgrid3 cell31) (BelongSubgrid subgrid3 cell32) (BelongSubgrid subgrid3 cell40) (BelongSubgrid subgrid3 cell41) (BelongSubgrid subgrid3 cell42)
+		(BelongSubgrid subgrid4 cell33) (BelongSubgrid subgrid4 cell34) (BelongSubgrid subgrid4 cell35) (BelongSubgrid subgrid4 cell43) (BelongSubgrid subgrid4 cell44) (BelongSubgrid subgrid4 cell45)
+		(BelongSubgrid subgrid5 cell36) (BelongSubgrid subgrid5 cell37) (BelongSubgrid subgrid5 cell38) (BelongSubgrid subgrid5 cell46) (BelongSubgrid subgrid5 cell47) (BelongSubgrid subgrid5 cell48)
 
 		(UsedRow row0 six) (UsedColumn column1 six) (UsedSubgrid subgrid0 six)
 		(UsedRow row0 two) (UsedColumn column5 two) (UsedSubgrid subgrid1 two)
@@ -47,6 +49,9 @@
 
 		(UsedRow row3 six) (UsedColumn column3 six) (UsedSubgrid subgrid4 six)
 		(UsedRow row3 one) (UsedColumn column6 one) (UsedSubgrid subgrid5 one)
+
+		(UsedRow row4 one) (UsedColumn column1 one) (UsedSubgrid subgrid3 one)
+		(UsedRow row4 four) (UsedColumn column7 four) (UsedSubgrid subgrid5 four)
 		
 		(empty cell00)
 		(empty cell02)
@@ -78,6 +83,14 @@
 		(empty cell35)
 		(empty cell37)
 		(empty cell38)
+
+		(empty cell40)
+		(empty cell42)
+		(empty cell43)
+		(empty cell44)
+		(empty cell45)
+		(empty cell46)
+		(empty cell48)
 		
 	)
 	(:goal
@@ -118,6 +131,15 @@
           (not (empty cell36))
           (not (empty cell37))
           (not (empty cell38))
+          (not (empty cell40))
+          (not (empty cell41))
+          (not (empty cell42))
+          (not (empty cell43))
+          (not (empty cell44))
+          (not (empty cell45))
+          (not (empty cell46))
+          (not (empty cell47))
+          (not (empty cell48))
 		)
     )
 )

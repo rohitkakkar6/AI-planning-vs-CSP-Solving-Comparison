@@ -21,3 +21,5 @@ November 30, 2023
 Decided on splitting up the code to see the breaking point as running the full implementation timed out the planner resulting in no plans
 
 tests on 1 row and 3 rows are successful with 1 row taking 0.35 seconds on average to solve and the 3 rows implementation taking 0.55 seconds on average by the online solver.
+
+testing 5x9 shows the first significant leap in time going from 1 second to 4.2 seconds on average to find a plan
