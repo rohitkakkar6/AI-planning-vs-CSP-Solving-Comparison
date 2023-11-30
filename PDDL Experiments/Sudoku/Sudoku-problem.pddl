@@ -50,8 +50,11 @@
 
 
 		; top left subgrid
-		(filled cell00 nine) (UsedRow row0 nine) (UsedColumn column0 nine) (UsedSubgrid subgrid0 nine)
-		(filled cell21 seven) (UsedRow row2 seven) (UsedColumn column1 seven) (UsedSubgrid subgrid0 seven)
+		(UsedRow row0 nine) (UsedColumn column0 nine) (UsedSubgrid subgrid0 nine)
+		(UsedRow row2 seven) (UsedColumn column1 seven) (UsedSubgrid subgrid0 seven)
+
+	    (not (empty cell00))
+	    (not (empty cell21))			
 
 		(empty cell01)
 		(empty cell02)
@@ -62,10 +65,15 @@
 		(empty cell22)
 		
 		; top middle subgrid
-		(filled cell04 one) (UsedRow row0 one) (UsedColumn column4 one) (UsedSubgrid subgrid1 one)
-		(filled cell14 six) (UsedRow row1 six) (UsedColumn column4 six) (UsedSubgrid subgrid1 six)
-		(filled cell23 nine) (UsedRow row2 nine) (UsedColumn column3 nine) (UsedSubgrid subgrid1 nine)
-		(filled cell25 eight) (UsedRow row2 eight) (UsedColumn column5 eight) (UsedSubgrid subgrid1 eight)
+		(UsedRow row0 one) (UsedColumn column4 one) (UsedSubgrid subgrid1 one)
+		(UsedRow row1 six) (UsedColumn column4 six) (UsedSubgrid subgrid1 six)
+		(UsedRow row2 nine) (UsedColumn column3 nine) (UsedSubgrid subgrid1 nine)
+		(UsedRow row2 eight) (UsedColumn column5 eight) (UsedSubgrid subgrid1 eight)
+
+		(not (empty cell04))
+		(not (empty cell14))
+		(not (empty cell23))
+		(not (empty cell25))
 
 		(empty cell03)
 		(empty cell05)
@@ -74,9 +82,13 @@
 		(empty cell24)
 
 		; top right subgrid
-		(filled cell07 seven) (UsedRow row0 seven) (UsedColumn column7 seven) (UsedSubgrid subgrid2 seven)
-		(filled cell17 two) (UsedRow row1 two) (UsedColumn column7 two) (UsedSubgrid subgrid2 two)
-		(filled cell18 four) (UsedRow row1 four) (UsedColumn column8 four) (UsedSubgrid subgrid2 four)
+		(UsedRow row0 seven) (UsedColumn column7 seven) (UsedSubgrid subgrid2 seven)
+		(UsedRow row1 two) (UsedColumn column7 two) (UsedSubgrid subgrid2 two)
+		(UsedRow row1 four) (UsedColumn column8 four) (UsedSubgrid subgrid2 four)
+
+		(not (empty cell07))
+		(not (empty cell17))
+		(not (empty cell18))
 
 		(empty cell06)
 		(empty cell08)
@@ -86,20 +98,30 @@
 		(empty cell28)
 
 		; left middle subgrid
-		(filled cell32 six) (UsedRow row3 six) (UsedColumn column2 six) (UsedSubgrid subgrid3 six)
-		(filled cell40 two) (UsedRow row4 two) (UsedColumn column0 two) (UsedSubgrid subgrid3 two)
-		(filled cell41 one) (UsedRow row4 one) (UsedColumn column1 one) (UsedSubgrid subgrid3 one)
-		(filled cell42 eight) (UsedRow row4 eight) (UsedColumn column2 eight) (UsedSubgrid subgrid3 eight)
-		(filled cell51 five) (UsedRow row5 five) (UsedColumn column1 five) (UsedSubgrid subgrid3 five)
-		(filled cell52 three) (UsedRow row5 three) (UsedColumn column2 three) (UsedSubgrid subgrid3 three)
+		(UsedRow row3 six) (UsedColumn column2 six) (UsedSubgrid subgrid3 six)
+		(UsedRow row4 two) (UsedColumn column0 two) (UsedSubgrid subgrid3 two)
+		(UsedRow row4 one) (UsedColumn column1 one) (UsedSubgrid subgrid3 one)
+		(UsedRow row4 eight) (UsedColumn column2 eight) (UsedSubgrid subgrid3 eight)
+		(UsedRow row5 five) (UsedColumn column1 five) (UsedSubgrid subgrid3 five)
+		(UsedRow row5 three) (UsedColumn column2 three) (UsedSubgrid subgrid3 three)
+
+		(not (empty cell32))
+		(not (empty cell40))
+		(not (empty cell41))
+		(not (empty cell42))
+		(not (empty cell51))
+		(not (empty cell52))
 
 		(empty cell30)
 		(empty cell31)
 		(empty cell50)
 
 		; middle subgrid
-		(filled cell53 two) (UsedRow row5 two) (UsedColumn column3 two) (UsedSubgrid subgrid4 two)
-		(filled cell55 four) (UsedRow row5 four) (UsedColumn column5 four) (UsedSubgrid subgrid4 four)
+		(UsedRow row5 two) (UsedColumn column3 two) (UsedSubgrid subgrid4 two)
+		(UsedRow row5 four) (UsedColumn column5 four) (UsedSubgrid subgrid4 four)
+
+		(not (empty cell53))
+		(not (empty cell55))
 
 		(empty cell33)
 		(empty cell34)
@@ -110,7 +132,9 @@
 		(empty cell54)
 
 		; right middle subgrid
-		(filled cell56 six) (UsedRow row5 six) (UsedColumn column6 six) (UsedSubgrid subgrid5 six)
+		(UsedRow row5 six) (UsedColumn column6 six) (UsedSubgrid subgrid5 six)
+
+		(not (empty cell56))
 
 		(empty cell36)
 		(empty cell37)
@@ -122,7 +146,9 @@
 		(empty cell58)
 
 		; bottom left subgrid
-		(filled cell80 five) (UsedRow row8 five) (UsedColumn column0 five) (UsedSubgrid subgrid6 five)
+		(UsedRow row8 five) (UsedColumn column0 five) (UsedSubgrid subgrid6 five)
+
+		(not (empty cell80))
 
 		(empty cell60)
 		(empty cell61)
@@ -134,9 +160,13 @@
 		(empty cell82)
 
 		; bottom middle subgrid
-		(filled cell63 five) (UsedRow row6 five) (UsedColumn column3 five) (UsedSubgrid subgrid7 five)
-		(filled cell64 four) (UsedRow row6 four) (UsedColumn column4 four) (UsedSubgrid subgrid7 four)
-		(filled cell65 nine) (UsedRow row6 nine) (UsedColumn column5 nine) (UsedSubgrid subgrid7 nine)
+		(UsedRow row6 five) (UsedColumn column3 five) (UsedSubgrid subgrid7 five)
+		(UsedRow row6 four) (UsedColumn column4 four) (UsedSubgrid subgrid7 four)
+		(UsedRow row6 nine) (UsedColumn column5 nine) (UsedSubgrid subgrid7 nine)
+
+		(not (empty cell63))
+		(not (empty cell64))
+		(not (empty cell65))
 
 		(empty cell73)
 		(empty cell74)
@@ -146,9 +176,13 @@
 		(empty cell85)
 
 		; bottom right subgrid
-		(filled cell76 seven) (UsedRow row7 seven) (UsedColumn column6 seven) (UsedSubgrid subgrid8 seven)
-		(filled cell78 two) (UsedRow row7 two) (UsedColumn column8 two) (UsedSubgrid subgrid8 two)
-		(filled cell87 eight) (UsedRow row8 eight) (UsedColumn column7 eight) (UsedSubgrid subgrid8 eight)
+		(UsedRow row7 seven) (UsedColumn column6 seven) (UsedSubgrid subgrid8 seven)
+		(UsedRow row7 two) (UsedColumn column8 two) (UsedSubgrid subgrid8 two)
+		(UsedRow row8 eight) (UsedColumn column7 eight) (UsedSubgrid subgrid8 eight)
+
+		(not (empty cell76))
+		(not (empty cell78))
+		(not (empty cell87))
 
 		(empty cell66)
 		(empty cell67)

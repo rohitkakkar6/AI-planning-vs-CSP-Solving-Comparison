@@ -1,7 +1,7 @@
 (define (domain sudoku)
-  (:requirements :strips :typing)
+  (:requirements :strips :typing :negative-preconditions)
   (:types
-    digit cell row column subgrid
+    digit cell row column subgrid - objects
   )
 
   (:predicates
@@ -12,7 +12,6 @@
     (BelongSubgrid ?s - subgrid ?c - cell)
     (UsedSubgrid ?s - subgrid ?num - digit)
     (empty ?c - cell)
-    (filled ?c - cell ?d - digit)
   )
   
   (:action place-digit
@@ -24,8 +23,7 @@
                        (not (UsedRow ?r ?num))
                        (not (UsedSubgrid ?s ?num))
                        (not (UsedColumn ?col ?num)))
-    :effect (and (filled ?c ?num)
-                 (not (empty ?c))
+    :effect (and (not (empty ?c))
                  (UsedColumn ?col ?num)
                  (UsedRow ?r ?num)
                  (UsedSubgrid ?s ?num))
