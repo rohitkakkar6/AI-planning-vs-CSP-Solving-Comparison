@@ -42,3 +42,10 @@ December 4, 2023
 
 Decided on moving onto problems more suited to modelling which do not require backtracking
 as this is something that off the shelf planners lack.
+
+December 7, 2023
+
+Wanted to improve my testing methodology, decided to create a python script that can count how many times a digit appears
+in each row, column and subgrid
+
+added functionality to read files, and return valid if the plan is valid
