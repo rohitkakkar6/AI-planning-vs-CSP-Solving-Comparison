@@ -26,3 +26,19 @@ Tried a different implementation of the 3x3 PDDL model, finally got it working
 November 11, 2023
 
 Ran Z3 solver on classic 9x9 grid, noted it takes some time to find a solution.
+November 30, 2023
+
+Decided on splitting up the code to see the breaking point as running the full implementation timed out the planner resulting in no plans
+
+tests on 1 row and 3 rows are successful with 1 row taking 0.35 seconds on average to solve and the 3 rows implementation taking 0.55 seconds on average by the online solver.
+
+testing 5x9 shows the first significant leap in time going from 1 second to 4.2 seconds on average to find a plan
+
+December 1, 2023
+
+6x9 found as the breaking point
+
+December 4, 2023
+
+Decided on moving onto problems more suited to modelling which do not require backtracking
+as this is something that off the shelf planners lack.

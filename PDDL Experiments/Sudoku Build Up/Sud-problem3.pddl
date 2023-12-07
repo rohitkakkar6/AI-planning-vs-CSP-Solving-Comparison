@@ -1,0 +1,168 @@
+(define (problem sudoku9x9)
+	(:domain sudbuildmultiple)
+	(:objects
+    	one two three four five six seven eight nine - digit
+	    cell00 cell01 cell02 cell03 cell04 cell05 cell06 cell07 cell08 - cell
+	    cell10 cell11 cell12 cell13 cell14 cell15 cell16 cell17 cell18 - cell
+	    cell20 cell21 cell22 cell23 cell24 cell25 cell26 cell27 cell28 - cell
+		cell30 cell31 cell32 cell33 cell34 cell35 cell36 cell37 cell38 - cell
+		cell40 cell41 cell42 cell43 cell44 cell45 cell46 cell47 cell48 - cell
+		cell50 cell51 cell52 cell53 cell54 cell55 cell56 cell57 cell58 - cell
+	    row0 row1 row2 row3 row4 row5 - row
+	    column0 column1 column2 column3 column4 column5 column6 column7 column8 - column
+	    subgrid0 subgrid1 subgrid2 subgrid3 subgrid4 subgrid5 - subgrid
+	)
+
+	(:init
+		;Cell connections
+		(BelongRow row0 cell00) (BelongRow row0 cell01) (BelongRow row0 cell02) (BelongRow row0 cell03) (BelongRow row0 cell04) (BelongRow row0 cell05) (BelongRow row0 cell06) (BelongRow row0 cell07) (BelongRow row0 cell08)
+        (BelongRow row1 cell10) (BelongRow row1 cell11) (BelongRow row1 cell12) (BelongRow row1 cell13) (BelongRow row1 cell14) (BelongRow row1 cell15) (BelongRow row1 cell16) (BelongRow row1 cell17) (BelongRow row1 cell18)
+        (BelongRow row2 cell20) (BelongRow row2 cell21) (BelongRow row2 cell22) (BelongRow row2 cell23) (BelongRow row2 cell24) (BelongRow row2 cell25) (BelongRow row2 cell26) (BelongRow row2 cell27) (BelongRow row2 cell28)
+        (BelongRow row3 cell30) (BelongRow row3 cell31) (BelongRow row3 cell32) (BelongRow row3 cell33) (BelongRow row3 cell34) (BelongRow row3 cell35) (BelongRow row3 cell36) (BelongRow row3 cell37) (BelongRow row3 cell38)
+        (BelongRow row4 cell40) (BelongRow row4 cell41) (BelongRow row4 cell42) (BelongRow row4 cell43) (BelongRow row4 cell44) (BelongRow row4 cell45) (BelongRow row4 cell46) (BelongRow row4 cell47) (BelongRow row4 cell48)
+        (BelongRow row5 cell50) (BelongRow row5 cell51) (BelongRow row5 cell52) (BelongRow row5 cell53) (BelongRow row5 cell54) (BelongRow row5 cell55) (BelongRow row5 cell56) (BelongRow row5 cell57) (BelongRow row5 cell58)
+        
+		(BelongColumn column0 cell00) (BelongColumn column0 cell10) (BelongColumn column0 cell20) (BelongColumn column0 cell30) (BelongColumn column0 cell40) (BelongColumn column0 cell50)
+		(BelongColumn column1 cell01) (BelongColumn column1 cell11) (BelongColumn column1 cell21) (BelongColumn column1 cell31) (BelongColumn column1 cell41) (BelongColumn column1 cell51) 
+		(BelongColumn column2 cell02) (BelongColumn column2 cell12) (BelongColumn column2 cell22) (BelongColumn column2 cell32) (BelongColumn column2 cell42) (BelongColumn column2 cell52) 
+		(BelongColumn column3 cell03) (BelongColumn column3 cell13) (BelongColumn column3 cell23) (BelongColumn column3 cell33) (BelongColumn column3 cell43) (BelongColumn column3 cell53) 
+		(BelongColumn column4 cell04) (BelongColumn column4 cell14) (BelongColumn column4 cell24) (BelongColumn column4 cell34) (BelongColumn column4 cell44) (BelongColumn column4 cell54) 
+		(BelongColumn column5 cell05) (BelongColumn column5 cell15) (BelongColumn column5 cell25) (BelongColumn column5 cell35) (BelongColumn column5 cell45) (BelongColumn column5 cell55) 
+		(BelongColumn column6 cell06) (BelongColumn column6 cell16) (BelongColumn column6 cell26) (BelongColumn column6 cell36) (BelongColumn column6 cell46) (BelongColumn column6 cell56)
+		(BelongColumn column7 cell07) (BelongColumn column7 cell17) (BelongColumn column7 cell27) (BelongColumn column7 cell37) (BelongColumn column7 cell47) (BelongColumn column7 cell57) 
+		(BelongColumn column8 cell08) (BelongColumn column8 cell18) (BelongColumn column8 cell28) (BelongColumn column8 cell38) (BelongColumn column8 cell48) (BelongColumn column8 cell58)
+
+		(BelongSubgrid subgrid0 cell00) (BelongSubgrid subgrid0 cell01) (BelongSubgrid subgrid0 cell02) (BelongSubgrid subgrid0 cell10) (BelongSubgrid subgrid0 cell11) (BelongSubgrid subgrid0 cell12) (BelongSubgrid subgrid0 cell20) (BelongSubgrid subgrid0 cell21) (BelongSubgrid subgrid0 cell22)
+		(BelongSubgrid subgrid1 cell03) (BelongSubgrid subgrid1 cell04) (BelongSubgrid subgrid1 cell05) (BelongSubgrid subgrid1 cell13) (BelongSubgrid subgrid1 cell14) (BelongSubgrid subgrid1 cell15) (BelongSubgrid subgrid1 cell23) (BelongSubgrid subgrid1 cell24) (BelongSubgrid subgrid1 cell25)
+		(BelongSubgrid subgrid2 cell06) (BelongSubgrid subgrid2 cell07) (BelongSubgrid subgrid2 cell08) (BelongSubgrid subgrid2 cell16) (BelongSubgrid subgrid2 cell17) (BelongSubgrid subgrid2 cell18) (BelongSubgrid subgrid2 cell26) (BelongSubgrid subgrid2 cell27) (BelongSubgrid subgrid2 cell28)
+		(BelongSubgrid subgrid3 cell30) (BelongSubgrid subgrid3 cell31) (BelongSubgrid subgrid3 cell32) (BelongSubgrid subgrid3 cell40) (BelongSubgrid subgrid3 cell41) (BelongSubgrid subgrid3 cell42) (BelongSubgrid subgrid3 cell50) (BelongSubgrid subgrid3 cell51) (BelongSubgrid subgrid3 cell52)
+		(BelongSubgrid subgrid4 cell33) (BelongSubgrid subgrid4 cell34) (BelongSubgrid subgrid4 cell35) (BelongSubgrid subgrid4 cell43) (BelongSubgrid subgrid4 cell44) (BelongSubgrid subgrid4 cell45) (BelongSubgrid subgrid4 cell53) (BelongSubgrid subgrid4 cell54) (BelongSubgrid subgrid4 cell55)
+		(BelongSubgrid subgrid5 cell36) (BelongSubgrid subgrid5 cell37) (BelongSubgrid subgrid5 cell38) (BelongSubgrid subgrid5 cell46) (BelongSubgrid subgrid5 cell47) (BelongSubgrid subgrid5 cell48) (BelongSubgrid subgrid5 cell56) (BelongSubgrid subgrid5 cell57) (BelongSubgrid subgrid5 cell58)
+
+		(UsedRow row0 six) (UsedColumn column1 six) (UsedSubgrid subgrid0 six)
+		(UsedRow row0 two) (UsedColumn column5 two) (UsedSubgrid subgrid1 two)
+		(UsedRow row0 seven) (UsedColumn column8 seven) (UsedSubgrid subgrid2 seven)
+		
+		(UsedRow row1 four) (UsedColumn column2 four) (UsedSubgrid subgrid0 four)
+		(UsedRow row1 eight) (UsedColumn column7 eight) (UsedSubgrid subgrid2 eight)
+		
+		(UsedRow row2 one) (UsedColumn column0 one) (UsedSubgrid subgrid0 one)
+		(UsedRow row2 five) (UsedColumn column4 five) (UsedSubgrid subgrid1 five)
+
+		(UsedRow row3 six) (UsedColumn column3 six) (UsedSubgrid subgrid4 six)
+		(UsedRow row3 one) (UsedColumn column6 one) (UsedSubgrid subgrid5 one)
+
+		(UsedRow row4 one) (UsedColumn column1 one) (UsedSubgrid subgrid3 one)
+		(UsedRow row4 four) (UsedColumn column7 four) (UsedSubgrid subgrid5 four)
+		
+		(UsedRow row5 two) (UsedColumn column3 two) (UsedSubgrid subgrid4 two)
+		(UsedRow row5 one) (UsedColumn column5 one) (UsedSubgrid subgrid4 one)
+		
+		(empty cell00)
+		(empty cell02)
+		(empty cell03)
+		(empty cell04)
+		(empty cell06)
+		(empty cell07)
+		
+		(empty cell10)
+		(empty cell11)
+		(empty cell13)
+		(empty cell14)
+		(empty cell15)
+		(empty cell16)
+		(empty cell18)
+		
+		(empty cell21)
+		(empty cell22)
+		(empty cell23)
+		(empty cell25)
+		(empty cell26)
+		(empty cell27)
+		(empty cell28)
+
+		(empty cell30)
+		(empty cell31)
+		(empty cell32)
+		(empty cell34)
+		(empty cell35)
+		(empty cell37)
+		(empty cell38)
+
+		(empty cell40)
+		(empty cell42)
+		(empty cell43)
+		(empty cell44)
+		(empty cell45)
+		(empty cell46)
+		(empty cell48)
+
+		(empty cell50)
+		(empty cell51)
+		(empty cell52)
+		(empty cell54)
+		(empty cell56)
+		(empty cell57)
+		(empty cell58)
+		
+		
+	)
+	(:goal
+        (and
+          (not (empty cell00))
+          (not (empty cell01))
+          (not (empty cell02))
+          (not (empty cell03))
+          (not (empty cell04))
+          (not (empty cell05))
+          (not (empty cell06))
+          (not (empty cell07))
+          (not (empty cell08))
+          (not (empty cell10))
+          (not (empty cell11))
+          (not (empty cell12))
+          (not (empty cell13))
+          (not (empty cell14))
+          (not (empty cell15))
+          (not (empty cell16))
+          (not (empty cell17))
+          (not (empty cell18))
+          (not (empty cell20))
+          (not (empty cell21))
+          (not (empty cell22))
+          (not (empty cell23))
+          (not (empty cell24))
+          (not (empty cell25))
+          (not (empty cell26))
+          (not (empty cell27))
+          (not (empty cell28))
+          (not (empty cell30))
+          (not (empty cell31))
+          (not (empty cell32))
+          (not (empty cell33))
+          (not (empty cell34))
+          (not (empty cell35))
+          (not (empty cell36))
+          (not (empty cell37))
+          (not (empty cell38))
+          (not (empty cell40))
+          (not (empty cell41))
+          (not (empty cell42))
+          (not (empty cell43))
+          (not (empty cell44))
+          (not (empty cell45))
+          (not (empty cell46))
+          (not (empty cell47))
+          (not (empty cell48))
+          (not (empty cell50))
+          (not (empty cell51))
+          (not (empty cell52))
+          (not (empty cell53))
+          (not (empty cell54))
+          (not (empty cell55))
+          (not (empty cell56))
+          (not (empty cell57))
+          (not (empty cell58))
+		)
+    )
+)
