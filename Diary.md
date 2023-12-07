@@ -23,3 +23,6 @@ Tried multiple different approaches of using the fast-downward planner, finally 
 Novemeber 14, 2023
 
 Tried a different implementation of the 3x3 PDDL model, finally got it working
+November 11, 2023
+
+Ran Z3 solver on classic 9x9 grid, noted it takes some time to find a solution.
