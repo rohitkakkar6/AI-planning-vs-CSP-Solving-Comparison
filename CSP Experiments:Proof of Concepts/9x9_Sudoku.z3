@@ -38,78 +38,70 @@
 (assert (distinct (Board x6 y3) (Board x6 y4) (Board x6 y5) (Board x7 y3) (Board x7 y4) (Board x7 y5) (Board x8 y3) (Board x8 y4) (Board x8 y5) ))
 (assert (distinct (Board x6 y6) (Board x6 y7) (Board x6 y8) (Board x7 y6) (Board x7 y7) (Board x7 y8) (Board x8 y6) (Board x8 y7) (Board x8 y8) ))
 
-
 ;;;;;; --- END-CONSTRAINTS-1 ---
 
 
 ;;;;; top left
-(assert (= (Board x0 y0) 6))
-(assert (= (Board x2 y1) 9))
-(assert (= (Board x0 y2) 2))
-(assert (= (Board x2 y2) 4))
+(assert (= (Board x0 y0) 5))
+(assert (= (Board x1 y0) 3))
+(assert (= (Board x0 y1) 6))
+(assert (= (Board x1 y2) 9))
+(assert (= (Board x2 y2) 8))
 
 
 ;;;;; top middle
-(assert (or (= (+ (Board x3 y0) 1) (Board x4 y0)) (= (+ (Board x3 y0) 1) (Board x3 y1))))
-(assert (or (= (+ (Board x5 y0) 1) (Board x4 y0)) (= (+ (Board x5 y0) 1) (Board x5 y1))))
-(assert (or (= (+ (Board x3 y2) 1) (Board x4 y2)) (= (+ (Board x3 y2) 1) (Board x3 y1))))
-(assert (or (= (+ (Board x5 y2) 1) (Board x4 y2)) (= (+ (Board x5 y2) 1) (Board x5 y1))))
-
-
+(assert (= (Board x4 y0) 7))
+(assert (= (Board x3 y1) 1))
+(assert (= (Board x4 y1) 9))
+(assert (= (Board x5 y1) 5))
 
 
 ;;;;; top right
-(assert (= (* (Board x7 y1) 2) (+ (Board x7 y0) (Board x6 y1) (Board x7 y2) (Board x8 y1))))
+(assert (= (Board x7 y2) 6))
 
 
 
 
 ;;;;; middle left
-(assert (= (+ (Board x1 y3) (Board x2 y3)) 13))
-(assert (= (* (Board x0 y4) 2) (Board x0 y5)))
-(assert (= (- (Board x2 y5) (Board x2 y4)) 4))
+(assert (= (Board x0 y3) 8))
+(assert (= (Board x0 y4) 4))
+(assert (= (Board x0 y5) 7))
 
 
 
 
 ;;;;; center
-(assert (and (> (Board x3 y3) (Board x3 y4)) (> (Board x4 y3) (Board x4 y4)) (> (Board x5 y3) (Board x5 y4))))
-(assert (and (> (Board x3 y4) (Board x3 y5)) (> (Board x4 y4) (Board x4 y5)) (> (Board x5 y4) (Board x5 y5))))
-
+(assert (= (Board x4 y3) 6))
+(assert (= (Board x3 y4) 8))
+(assert (= (Board x5 y4) 3))
+(assert (= (Board x4 y5) 2))
 
 
 
 ;;;;; middle right
-(assert (and (or (> (Board x7 y3) 4) (and (> (Board x6 y4) 4) (> (Board x8 y4) 4) (> (Board x7 y5) 4)))
-             (or (> (Board x6 y4) 4) (and (> (Board x7 y3) 4) (> (Board x8 y4) 4) (> (Board x7 y5) 4)))
-             (or (> (Board x7 y5) 4) (and (> (Board x6 y4) 4) (> (Board x8 y4) 4) (> (Board x7 y3) 4)))
-             (or (> (Board x8 y4) 4) (and (> (Board x6 y4) 4) (> (Board x7 y3) 4) (> (Board x7 y5) 4)))
-             (or (< (Board x7 y3) 5)
-                 (< (Board x6 y4) 5)
-                 (< (Board x7 y5) 5)
-                 (< (Board x8 y4) 5))
-             ))
+(assert (= (Board x8 y3) 3))
+(assert (= (Board x8 y4) 1))
+(assert (= (Board x8 y5) 6))
 
 
 
 ;;;;; bottom left
-(assert (=
-    (+ (Board x0 y6) (Board x1 y6) (Board x2 y6))
-    (+ (Board x0 y7) (Board x1 y7) (Board x2 y7))
-    (+ (Board x0 y8) (Board x1 y8) (Board x2 y8))))
-
+(assert (= (Board x1 y6) 6))
 
 
 ;;;;; bottom middle
-;(declare-fun aux2 () Int)
-;(declare-fun aux3 () Int)
-
-(assert (and (= (rem (+ (Board x3 y6) (Board x3 y7) (Board x3 y8)) 2) 1) (= (rem (+ (Board x5 y6) (Board x5 y7) (Board x5 y8)) 2) 1)))
+(assert (= (Board x4 y3) 6))
+(assert (= (Board x3 y4) 8))
+(assert (= (Board x5 y4) 3))
+(assert (= (Board x4 y5) 2))
 
 
 ;;;;; bottom right
-
-(assert (or (and (= (mod (Board x6 y6) 2) 0) (= (mod (Board x6 y8) 2) 0) (= (mod (Board x8 y6) 2) 0) (= (mod (Board x8 y8) 2) 0) (= (mod (Board x7 y7) 2) 1)) (and (= (mod (Board x6 y6) 2) 1) (= (mod (Board x6 y8) 2) 1) (= (mod (Board x8 y6) 2) 1) (= (mod (Board x8 y8) 2) 1) (= (mod (Board x7 y7) 2) 0))))
+(assert (= (Board x6 y6) 2))
+(assert (= (Board x7 y6) 8))
+(assert (= (Board x8 y7) 5))
+(assert (= (Board x7 y8) 7))
+(assert (= (Board x8 y8) 9))
 
 
 
