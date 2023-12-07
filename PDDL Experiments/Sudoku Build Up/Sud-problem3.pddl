@@ -1,5 +1,5 @@
 (define (problem sudoku9x9)
-	(:domain sudbuild)
+	(:domain sudbuildmultiple)
 	(:objects
     	one two three four five six seven eight nine - digit
 	    cell00 cell01 cell02 cell03 cell04 cell05 cell06 cell07 cell08 - cell
@@ -55,6 +55,9 @@
 		(UsedRow row4 one) (UsedColumn column1 one) (UsedSubgrid subgrid3 one)
 		(UsedRow row4 four) (UsedColumn column7 four) (UsedSubgrid subgrid5 four)
 		
+		(UsedRow row5 two) (UsedColumn column3 two) (UsedSubgrid subgrid4 two)
+		(UsedRow row5 one) (UsedColumn column5 one) (UsedSubgrid subgrid4 one)
+		
 		(empty cell00)
 		(empty cell02)
 		(empty cell03)
@@ -97,12 +100,11 @@
 		(empty cell50)
 		(empty cell51)
 		(empty cell52)
-		(empty cell53)
 		(empty cell54)
-		(empty cell55)
 		(empty cell56)
 		(empty cell57)
 		(empty cell58)
+		
 		
 	)
 	(:goal
