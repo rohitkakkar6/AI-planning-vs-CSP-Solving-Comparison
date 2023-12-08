@@ -16,3 +16,4 @@
     :effect (and (filled ?c ?d) (not (empty ?c)) (not(is-available ?d)))
   )
 )
+

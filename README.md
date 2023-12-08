@@ -1,5 +1,16 @@
 # Final Year Project
 
-This repository has been created to store your final year project.
+In order to run the model pddl files:
+Follow the guide on https://www.fast-downward.org/QuickStart to download and build
+run the following command while keeping file locations in mind
+./fast-downward.py --alias seq-sat-lama-2011 ./location/to/domain.pddl ./location/to/problem.pddl
+The resulting plan will be in the SAS file if found.
 
-You may edit it as you like, but please do not remove the default topics or the project members list. These need to stay as currently defined in order for your supervisor to be able to find your project.
+To run the .z3 CSP files:
+prerequisites: python3
+next run pip install z3 in the command line
+use the following command to use the z3 solver
+z3 ./location/to/file.z3
+
+https://youtu.be/iebSY4AQhyA
+youtube video to follow along ^^
