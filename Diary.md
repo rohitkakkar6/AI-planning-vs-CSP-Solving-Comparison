@@ -49,3 +49,18 @@ Wanted to improve my testing methodology, decided to create a python script that
 in each row, column and subgrid
 
 added functionality to read files, and return valid if the plan is valid
+
+January 18, 2023
+
+Decided on a switch in project direction to pathfinding using the experience gained through modelling sudoku
+
+January 19, 2023
+
+Planning on modelling a 4x4 grid to model a pathfinding problem going from A to B for an agent,
+will be done in pddl and csp to compare the implementations.
+
+January 21, 2023
+
+Researched A* and how it could be implemented into my planning solution, along with
+backtracking with forward propagation for the csp solution as this shouldn't be too
+complex and can provide insight into the strenghts and weaknesses.
