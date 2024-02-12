@@ -3,11 +3,11 @@
   "defaultOptions": "",
   "cases": [
     {
-      "problem": "pathfinding-problem1.pddl"
+      "problem": "Test_Right_Movement.pddl"
       
     },
     {
-      "problem": "pathfinding-problem2.pddl"
+      "problem": "Test_Left_Movement.pddl"
     }
   ]
 }
