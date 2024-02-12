@@ -1,0 +1,2 @@
+(move-right cell00 cell01)
+; cost = 1 (unit cost)

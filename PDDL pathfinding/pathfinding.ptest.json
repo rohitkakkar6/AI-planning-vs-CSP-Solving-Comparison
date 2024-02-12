@@ -1,0 +1,13 @@
+{
+  "defaultDomain": "pathfinding.pddl",
+  "defaultOptions": "",
+  "cases": [
+    {
+      "problem": "pathfinding-problem1.pddl"
+      
+    },
+    {
+      "problem": "pathfinding-problem2.pddl"
+    }
+  ]
+}
