@@ -8,6 +8,7 @@
     (cell ?p - position)  ; Indicates a cell at position p
     (right-of ?p1 ?p2 - position);Defines adjacency rules
     (left-of ?p1 ?p2 - position)  ; Define left adjacent rule
+    (is-underneath ?p1 ?p2 - position)  ; Define underneath adjacency rule
   )
 
   ; Actions
@@ -28,6 +29,18 @@
     :precondition (and 
         (at ?from)
         (left-of ?to ?from)
+    )
+    :effect (and
+        (not (at ?from))
+        (at ?to)
+    )
+  )
+
+  (:action move-down
+    :parameters (?from ?to - position)
+    :precondition (and 
+        (at ?from)
+        (is-underneath ?to ?from)
     )
     :effect (and
         (not (at ?from))

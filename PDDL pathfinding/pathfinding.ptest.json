@@ -8,6 +8,9 @@
     },
     {
       "problem": "Test_Left_Movement.pddl"
+    },
+    {
+      "problem": "Test_Down_Movement.pddl"
     }
   ]
 }
