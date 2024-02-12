@@ -1,2 +1,3 @@
-(move-right cell00 cell01)
-; cost = 1 (unit cost)
+(move-left cell02 cell01)
+(move-left cell01 cell00)
+; cost = 2 (unit cost)
