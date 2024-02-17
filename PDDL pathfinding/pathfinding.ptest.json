@@ -11,6 +11,9 @@
     },
     {
       "problem": "Test_Down_Movement.pddl"
+    },
+    {
+      "problem": "Test_Up_Movement.pddl"
     }
   ]
 }
