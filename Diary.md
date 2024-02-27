@@ -68,3 +68,7 @@ complex and can provide insight into the strenghts and weaknesses.
 February 12, 2024
 
 Connected fast downward planner to pddl vscode extension allowing for problem files to be used as test cases
+
+February 17, 2024
+
+All actions for PDDL pathfinding model complete, start creating problem files.
