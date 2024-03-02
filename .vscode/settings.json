@@ -2,7 +2,7 @@
     "python.testing.unittestArgs": [
         "-v",
         "-s",
-        ".",
+        "./CSP pathfinding",
         "-p",
         "*_test.py"
     ],
