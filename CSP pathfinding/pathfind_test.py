@@ -11,7 +11,7 @@ class TestIsAdjacent(unittest.TestCase):
     def test_non_adjacent_positions(self):
         self.assertFalse(is_adjacent((0, 0), (2, 0))) # Far Down
         self.assertFalse(is_adjacent((0, 0), (0, 2))) # Far Right
-        self.assertFalse(is_adjacent((1, 1), (2, 2))) #Diagonal
+        self.assertFalse(is_adjacent((1, 1), (2, 2))) # Diagonal
         
  
 if __name__ == '__main__':

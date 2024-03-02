@@ -89,3 +89,11 @@ Start thinking about how to develop in python using test driven development
 February 29, 2024
 
 Experiment with unittest
+
+March 2, 2024
+
+Research A*, start development using python
+
+Develop manhattan distance heuristic as currently vertical and horizontal movements are allowed so the estimate is more realistic
+
+Develop tests for the heuristic function
