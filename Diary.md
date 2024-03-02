@@ -72,3 +72,20 @@ Connected fast downward planner to pddl vscode extension allowing for problem fi
 February 17, 2024
 
 All actions for PDDL pathfinding model complete, start creating problem files.
+
+February 22, 2024
+
+Sample problem files along with tests complete, start researching different implementations of csp version of the pathfinding problem.
+
+February 25, 2024
+
+Development for constraint satisfaction version of the pathfinding problem,
+Create variables, create domain, create constraints
+
+February 26, 2024
+
+Start thinking about how to develop in python using test driven development
+
+February 29, 2024
+
+Experiment with unittest
