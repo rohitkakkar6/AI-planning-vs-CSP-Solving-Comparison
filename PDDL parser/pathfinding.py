@@ -1,3 +1,5 @@
+from queue import PriorityQueue
+
 #Manhattan distance used for heuristic
 def h(cell1,cell2):
     x1, y1 = int(cell1[4]), int(cell1[5])
@@ -81,3 +83,58 @@ def generate_successors(current_cell):
         successors.append(down_cell)
 
     return successors
+
+def reconstruct_path(came_from, goal):
+    path = [goal]
+    while goal in came_from:
+        goal = came_from[goal]
+        path.append(goal)
+    path.reverse()  # Reverse the path to start from the beginning
+    return path
+
+
+def aStar():
+    start = 'cell43'
+    goal = 'cell00'
+
+    # Initialize g_score and f_score dictionaries in file input formatting
+    g_score = {f"cell{row}{col}": float('inf') for row in range(5) for col in range(5)}
+    f_score = {f"cell{row}{col}": float('inf') for row in range(5) for col in range(5)}
+
+    # Set the start cell's g_score to 0 and its f_score to the heuristic estimate to the goal
+    g_score[start] = 0
+    f_score[start] = h(start, goal)
+    
+    open_set = PriorityQueue()
+    open_set.put((h(start, goal), h(start, goal), start))  # Priority, G-score, Node
+
+    # Track the path taken to reach each node
+    came_from = {}
+    
+    while not open_set.empty():
+        current_cell = open_set.get()[2]
+        if current_cell == goal:
+            break
+        
+        for child_cell in generate_successors(current_cell):
+            temp_g_score = g_score[current_cell] + 1
+            temp_f_score = temp_g_score + h(child_cell, goal)
+
+            if temp_f_score < f_score[child_cell]:
+                g_score[child_cell] = temp_g_score
+                f_score[child_cell] = temp_f_score
+                open_set.put((temp_f_score, temp_g_score, child_cell))
+                came_from[child_cell] = current_cell
+    
+    if current_cell == goal:
+        return reconstruct_path(came_from, goal)
+    else:
+        return None
+    
+    
+path = aStar()
+
+if path:
+    print("Path found:", path)
+else:
+    print("No path found.")
