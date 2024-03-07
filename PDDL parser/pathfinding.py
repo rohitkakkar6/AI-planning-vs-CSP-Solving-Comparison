@@ -36,3 +36,27 @@ is_underneath = {
     'cell03': 'cell13', 'cell13': 'cell23', 'cell23': 'cell33', 'cell33': 'cell43',
     'cell04': 'cell14', 'cell14': 'cell24', 'cell24': 'cell34', 'cell34': 'cell44'
 }
+
+def validifyRight(cell1, cell2):
+    return right_of.get(cell1) == cell2
+
+def validifyLeft(cell1, cell2):
+    return left_of.get(cell1) == cell2
+
+def validifyUp(cell1, cell2):
+    return is_above.get(cell1) == cell2
+
+def validifyDown(cell1, cell2):
+    return is_underneath.get(cell1) == cell2
+
+def moveRight(cell):
+    return right_of.get(cell)
+
+def moveLeft(cell):
+    return left_of.get(cell)
+
+def moveUp(cell):
+    return is_above.get(cell)
+
+def moveDown(cell):
+    return is_underneath.get(cell)

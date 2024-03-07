@@ -1,5 +1,5 @@
 import unittest
-from pathfinding import h
+from pathfinding import h, moveDown, moveLeft, moveRight, moveUp, validifyDown, validifyLeft, validifyRight, validifyUp
 
 class TestHeuristic(unittest.TestCase):
     def test_adjacent_horizontal(self):
@@ -19,6 +19,39 @@ class TestHeuristic(unittest.TestCase):
 
     def test_non_zero_cells(self):
         self.assertEqual(h("cell23", "cell45"), 4)
+        
+class TestCellMoves(unittest.TestCase):
+    def test_moveRight(self):
+        self.assertEqual(moveRight("cell00"), "cell01")
+        self.assertIsNone(moveRight("cell04"))
+
+    def test_moveLeft(self):
+        self.assertEqual(moveLeft("cell01"), "cell00")
+        self.assertIsNone(moveLeft("cell00"))
+
+    def test_moveUp(self):
+        self.assertEqual(moveUp("cell10"), "cell00")
+        self.assertIsNone(moveUp("cell00")) 
+
+    def test_moveDown(self):
+        self.assertEqual(moveDown("cell00"), "cell10")
+        self.assertIsNone(moveDown("cell40"))
+
+    def test_validifyRight(self):
+        self.assertTrue(validifyRight("cell00", "cell01"))
+        self.assertFalse(validifyRight("cell00", "cell02"))
+
+    def test_validifyLeft(self):
+        self.assertTrue(validifyLeft("cell01", "cell00"))
+        self.assertFalse(validifyLeft("cell00", "cell01"))
+
+    def test_validifyUp(self):
+        self.assertTrue(validifyUp("cell10", "cell00"))
+        self.assertFalse(validifyUp("cell00", "cell10"))
+
+    def test_validifyDown(self):
+        self.assertTrue(validifyDown("cell00", "cell10"))
+        self.assertFalse(validifyDown("cell10", "cell00"))  
     
 if __name__ == '__main__':
     unittest.main()
