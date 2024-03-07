@@ -60,3 +60,24 @@ def moveUp(cell):
 
 def moveDown(cell):
     return is_underneath.get(cell)
+
+def generate_successors(current_cell):
+    successors = []
+    
+    right_cell = moveRight(current_cell)
+    if right_cell and validifyRight(current_cell, right_cell):
+        successors.append(right_cell)
+
+    left_cell = moveLeft(current_cell)
+    if left_cell and validifyLeft(current_cell, left_cell):
+        successors.append(left_cell)
+
+    up_cell = moveUp(current_cell)
+    if up_cell and validifyUp(current_cell, up_cell):
+        successors.append(up_cell)
+
+    down_cell = moveDown(current_cell)
+    if down_cell and validifyDown(current_cell, down_cell):
+        successors.append(down_cell)
+
+    return successors

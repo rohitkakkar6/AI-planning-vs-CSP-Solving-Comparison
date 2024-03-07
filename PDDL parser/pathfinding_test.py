@@ -1,5 +1,5 @@
 import unittest
-from pathfinding import h, moveDown, moveLeft, moveRight, moveUp, validifyDown, validifyLeft, validifyRight, validifyUp
+from pathfinding import generate_successors, h, moveDown, moveLeft, moveRight, moveUp, validifyDown, validifyLeft, validifyRight, validifyUp
 
 class TestHeuristic(unittest.TestCase):
     def test_adjacent_horizontal(self):
@@ -52,6 +52,17 @@ class TestCellMoves(unittest.TestCase):
     def test_validifyDown(self):
         self.assertTrue(validifyDown("cell00", "cell10"))
         self.assertFalse(validifyDown("cell10", "cell00"))  
+        
+class TestGenerateSuccessors(unittest.TestCase):
+    def test_center_cell(self):
+        self.assertEqual(set(generate_successors("cell22")), {"cell12", "cell32", "cell21", "cell23"})
+
+    def test_edge_cell(self):
+        self.assertEqual(set(generate_successors("cell00")), {"cell01", "cell10"})
+
+    def test_corner_cell(self):
+        self.assertEqual(set(generate_successors("cell44")), {"cell34", "cell43"})
+
     
 if __name__ == '__main__':
     unittest.main()
