@@ -1,5 +1,5 @@
 import unittest
-from pathfinding import aStar, generate_successors, h, moveDown, moveLeft, moveRight, moveUp, reconstruct_path, validifyDown, validifyLeft, validifyRight, validifyUp
+from aStar import aStar, generate_successors, h, moveDown, moveLeft, moveRight, moveUp, reconstruct_path, validifyDown, validifyLeft, validifyRight, validifyUp
 
 class TestHeuristic(unittest.TestCase):
     def test_adjacent_horizontal(self):
@@ -72,7 +72,7 @@ class TestReconstruct(unittest.TestCase):
 
 class TestaStar(unittest.TestCase):
     def test_aStar_path_found(self):
-        expected_path = ['cell43', 'cell33', 'cell23', 'cell13', 'cell03', 'cell02', 'cell01', 'cell00']
+        expected_path = ['cell02', 'cell03', 'cell04', 'cell14', 'cell24', 'cell34', 'cell44']
         self.assertEqual(aStar(), expected_path)
 
     
