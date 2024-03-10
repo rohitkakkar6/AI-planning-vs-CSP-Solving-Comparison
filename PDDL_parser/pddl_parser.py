@@ -26,11 +26,23 @@ def parse_pddl_file(file_path):
             if is_above_matches:
                 for match in is_above_matches:
                     is_above[match[1]] = match[0]
-
             
+            # Underneath adjacency rules
+            is_underneath_matches = re.findall(rf'\s*\(is-underneath (\S+) (\S+)\)', line)
+            if is_underneath_matches:
+                for match in is_underneath_matches:
+                    is_underneath[match[1]] = match[0]
 
-    return right_of, left_of, is_above
+            # (at X) matches
+            is_at_matches = re.findall(rf'\s*\(at cell(\d\d)\)', line)
+            if is_at_matches:
+                for match in is_at_matches:
+                    is_at.append('cell' + match)
+            
+        start = is_at[0]
+        goal = is_at[1]
 
-right_of, left_of, is_above = parse_pddl_file('PDDL pathfinding/5x5_pathfinding.pddl')
+    return right_of, left_of, is_above, is_underneath, start, goal
 
-print(is_above)
+right_of, left_of, is_above, is_underneath, start, goal = parse_pddl_file('PDDL pathfinding/5x5_pathfinding.pddl')
+
