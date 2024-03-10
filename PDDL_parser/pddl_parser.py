@@ -14,9 +14,17 @@ def parse_pddl_file(file_path):
             if right_of_matches:
                 for match in right_of_matches:
                     right_of[match[1]] = match[0]
+            
+            # Left adjacency rules
+            left_of_matches = re.findall(rf'\s*\(left-of (\S+) (\S+)\)', line)
+            if left_of_matches:
+                for match in left_of_matches:
+                    left_of[match[1]] = match[0]
 
             
 
-    return right_of
+    return right_of, left_of
 
-right_of = parse_pddl_file('PDDL pathfinding/5x5_pathfinding.pddl')
+right_of, left_of = parse_pddl_file('PDDL pathfinding/5x5_pathfinding.pddl')
+
+print(left_of)
