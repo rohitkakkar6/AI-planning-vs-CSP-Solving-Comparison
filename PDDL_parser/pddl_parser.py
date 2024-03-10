@@ -44,5 +44,4 @@ def parse_pddl_file(file_path):
 
     return right_of, left_of, is_above, is_underneath, start, goal
 
-right_of, left_of, is_above, is_underneath, start, goal = parse_pddl_file('PDDL pathfinding/5x5_pathfinding.pddl')
 

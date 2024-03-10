@@ -1,6 +1,8 @@
 from queue import PriorityQueue
 from pddl_parser import *
 
+right_of, left_of, is_above, is_underneath, start, goal = parse_pddl_file('PDDL pathfinding/Test_Down_Movement.pddl')
+
 def h(cell1, cell2):
     x1, y1 = int(cell1[4]), int(cell1[5])
     x2, y2 = int(cell2[4]), int(cell2[5])
