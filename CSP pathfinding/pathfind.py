@@ -1,4 +1,4 @@
-path_length = 4
+path_length = 6
 
 #variables
 steps = [f"step_{i}" for i in range(1, path_length + 1)]
