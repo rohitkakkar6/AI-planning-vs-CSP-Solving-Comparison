@@ -74,7 +74,7 @@ def aStar():
 
     # Initialize g_score and f_score dictionaries in file input formatting
     g_score = {f"cellx{row}y{col}": float('inf') for row in range(grid_size) for col in range(grid_size)}
-    f_score = {f"cellx{row}y{col}": float('inf') for row in range(5) for col in range(5)}
+    f_score = {f"cellx{row}y{col}": float('inf') for row in range(grid_size) for col in range(grid_size)}
 
     # Set the start cell's g_score to 0 and its f_score to the heuristic estimate to the goal
     g_score[start] = 0
