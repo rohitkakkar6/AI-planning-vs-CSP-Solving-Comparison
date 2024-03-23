@@ -3,76 +3,76 @@ from aStar import aStar, generate_successors, h, moveDown, moveLeft, moveRight, 
 
 class TestHeuristic(unittest.TestCase):
     def test_adjacent_horizontal(self):
-        self.assertEqual(h("cell00", "cell01"), 1)
+        self.assertEqual(h("cellx0y0", "cellx0y1"), 1)
 
     def test_adjacent_vertical(self):
-        self.assertEqual(h("cell00", "cell10"), 1)
+        self.assertEqual(h("cellx0y0", "cellx1y0"), 1)
 
     def test_diagonally_adjacent(self):
-        self.assertEqual(h("cell00", "cell11"), 2)
+        self.assertEqual(h("cellx0y0", "cellx1y1"), 2)
 
     def test_non_adjacent(self):
-        self.assertEqual(h("cell00", "cell33"), 6)
+        self.assertEqual(h("cellx0y0", "cellx3y3"), 6)
 
     def test_same_cell(self):
-        self.assertEqual(h("cell22", "cell22"), 0)
+        self.assertEqual(h("cellx2y2", "cellx2y2"), 0)
 
     def test_non_zero_cells(self):
-        self.assertEqual(h("cell23", "cell45"), 4)
+        self.assertEqual(h("cellx2y3", "cellx4y5"), 4)
         
 class TestCellMoves(unittest.TestCase):
     def test_moveRight(self):
-        self.assertEqual(moveRight("cell00"), "cell01")
-        self.assertIsNone(moveRight("cell04"))
+        self.assertEqual(moveRight("cellx0y0"), "cellx0y1")
+        self.assertIsNone(moveRight("cellx0y4"))
 
     def test_moveLeft(self):
-        self.assertEqual(moveLeft("cell01"), "cell00")
-        self.assertIsNone(moveLeft("cell00"))
+        self.assertEqual(moveLeft("cellx0y1"), "cellx0y0")
+        self.assertIsNone(moveLeft("cellx0y0"))
 
     def test_moveUp(self):
-        self.assertEqual(moveUp("cell10"), "cell00")
-        self.assertIsNone(moveUp("cell00")) 
+        self.assertEqual(moveUp("cellx1y0"), "cellx0y0")
+        self.assertIsNone(moveUp("cellx0y0")) 
 
     def test_moveDown(self):
-        self.assertEqual(moveDown("cell00"), "cell10")
-        self.assertIsNone(moveDown("cell40"))
+        self.assertEqual(moveDown("cellx0y0"), "cellx1y0")
+        self.assertIsNone(moveDown("cellx4y0"))
 
     def test_validifyRight(self):
-        self.assertTrue(validifyRight("cell00", "cell01"))
-        self.assertFalse(validifyRight("cell00", "cell02"))
+        self.assertTrue(validifyRight("cellx0y0", "cellx0y1"))
+        self.assertFalse(validifyRight("cellx0y0", "cellx0y2"))
 
     def test_validifyLeft(self):
-        self.assertTrue(validifyLeft("cell01", "cell00"))
-        self.assertFalse(validifyLeft("cell00", "cell01"))
+        self.assertTrue(validifyLeft("cellx0y1", "cellx0y0"))
+        self.assertFalse(validifyLeft("cellx0y0", "cellx0y1"))
 
     def test_validifyUp(self):
-        self.assertTrue(validifyUp("cell10", "cell00"))
-        self.assertFalse(validifyUp("cell00", "cell10"))
+        self.assertTrue(validifyUp("cellx1y0", "cellx0y0"))
+        self.assertFalse(validifyUp("cellx0y0", "cellx1y0"))
 
     def test_validifyDown(self):
-        self.assertTrue(validifyDown("cell00", "cell10"))
-        self.assertFalse(validifyDown("cell10", "cell00"))  
+        self.assertTrue(validifyDown("cellx0y0", "cellx1y0"))
+        self.assertFalse(validifyDown("cellx1y0", "cellx0y0"))  
         
 class TestGenerateSuccessors(unittest.TestCase):
     def test_center_cell(self):
-        self.assertEqual(set(generate_successors("cell22")), {"cell12", "cell32", "cell21", "cell23"})
+        self.assertEqual(set(generate_successors("cellx2y2")), {"cellx1y2", "cellx3y2", "cellx2y1", "cellx2y3"})
 
     def test_edge_cell(self):
-        self.assertEqual(set(generate_successors("cell00")), {"cell01", "cell10"})
+        self.assertEqual(set(generate_successors("cellx0y0")), {"cellx0y1", "cellx1y0"})
 
     def test_corner_cell(self):
-        self.assertEqual(set(generate_successors("cell44")), {"cell34", "cell43"})
+        self.assertEqual(set(generate_successors("cellx4y4")), {"cellx3y4", "cellx4y3"})
         
 class TestReconstruct(unittest.TestCase):
     def test_reconstruct_path(self):
-        came_from = {'cell01': 'cell00', 'cell02': 'cell01', 'cell12': 'cell02'}
-        goal = 'cell12'
-        expected_path = ['cell00', 'cell01', 'cell02', 'cell12']
+        came_from = {'cellx0y1': 'cellx0y0', 'cellx0y2': 'cellx0y1', 'cellx1y2': 'cellx0y2'}
+        goal = 'cellx1y2'
+        expected_path = ['cellx0y0', 'cellx0y1', 'cellx0y2', 'cellx1y2']
         self.assertEqual(reconstruct_path(came_from, goal), expected_path)
 
 class TestaStar(unittest.TestCase):
     def test_aStar_path_found(self):
-        expected_path = ['cell02', 'cell03', 'cell04', 'cell14', 'cell24', 'cell34', 'cell44']
+        expected_path = ['cellx0y2', 'cellx0y3', 'cellx0y4', 'cellx1y4', 'cellx2y4', 'cellx3y4', 'cellx4y4']
         self.assertEqual(aStar(), expected_path)
 
     
