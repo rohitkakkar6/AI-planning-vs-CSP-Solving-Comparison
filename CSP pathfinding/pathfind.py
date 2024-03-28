@@ -17,3 +17,4 @@ def is_adjacent(pos1, pos2):
 
 def not_visited(pos, visited):
     return pos not in visited
+
