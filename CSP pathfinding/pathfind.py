@@ -18,3 +18,23 @@ def is_adjacent(pos1, pos2):
 def not_visited(pos, visited):
     return pos not in visited
 
+def select_unassigned_variable(assignment, steps):
+    for step in steps:
+        if step not in assignment:
+            return step
+    return None
+
+# Consistency checker
+def is_consistent(step, pos, assignment, is_adjacent, visited):
+    if not not_visited(pos, visited):
+        return False
+    
+    if assignment:
+        previous_step_number = int(step.split('_')[1]) - 1
+        if previous_step_number > 0:
+            previous_step = f"step_{previous_step_number}"
+            if previous_step in assignment:
+                last_step_pos = assignment[previous_step]
+                if not is_adjacent(last_step_pos, pos):
+                    return False
+    return True
