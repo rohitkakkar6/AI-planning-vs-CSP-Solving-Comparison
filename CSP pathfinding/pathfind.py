@@ -1,14 +1,3 @@
-path_length = 4
-
-#variables
-steps = [f"step_{i}" for i in range(1, path_length + 1)]
-
-grid_positions = [(x, y) for x in range(5) for y in range(5)]
-domains = {step: grid_positions for step in steps}
-
-print(steps)
-print(domains)
-
 # Constraints
 def is_adjacent(pos1, pos2):
     row_diff = abs(pos1[0] - pos2[0])
@@ -38,3 +27,68 @@ def is_consistent(step, pos, assignment, is_adjacent, visited):
                 if not is_adjacent(last_step_pos, pos):
                     return False
     return True
+
+def assign(step, pos, assignment, visited):
+    assignment[step] = pos
+    visited.append(pos)
+
+def unassign(step, assignment, visited):
+    if step in assignment:
+        pos = assignment.pop(step)
+        visited.remove(pos)
+
+def goal_test(assignment, steps, goal_pos):
+    if len(assignment) != len(steps) or assignment[steps[-1]] != goal_pos:
+        return False
+    
+    visited = set()
+    for i, step in enumerate(steps):
+        if i == 0 and assignment[step] != start_pos:
+            return False
+        
+        if i > 0:
+            prev_step = steps[i - 1]
+            if not is_adjacent(assignment[prev_step], assignment[step]) or assignment[step] in visited:
+                return False
+        
+        visited.add(assignment[step])
+    return True
+
+def backtrack(assignment, steps, domains, visited, goal_pos):
+    if len(assignment) == len(steps) and goal_test(assignment, steps, goal_pos):
+        return assignment
+    
+    step = select_unassigned_variable(assignment, steps)
+    if step is None:
+        return None
+    
+    for pos in domains[step]:
+        if is_consistent(step, pos, assignment, is_adjacent, visited):
+            assign(step, pos, assignment, visited)
+            result = backtrack(assignment, steps, domains, visited, goal_pos)
+            if result is not None:
+                return result
+            unassign(step, assignment, visited)
+    return None
+
+def iterative_deepening(start_pos, goal_pos, max_depth=20):
+    for path_length in range(1, max_depth + 1):
+        steps = [f"step_{i}" for i in range(1, path_length + 1)]
+        domains = {step: grid_positions for step in steps}
+        visited = [start_pos]
+        assignment = {steps[0]: start_pos}
+        
+        solution = backtrack(assignment, steps, domains, visited, goal_pos)
+        if solution:
+            print(f"Solution found with path length {path_length}:", solution)
+            return solution
+    print("No solution found within the maximum path length.")
+    return None
+
+
+start_pos = (1, 2)
+goal_pos = (4,4)
+
+grid_positions = [(x, y) for x in range(5) for y in range(5)]
+
+solution = iterative_deepening(start_pos, goal_pos)
