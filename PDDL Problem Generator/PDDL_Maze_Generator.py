@@ -63,7 +63,7 @@ def generate_pddl(maze):
     
     max_y, max_x = max(maze.keys())
     goal_cell = f"cellx{max_x-1}y{max_y-1}"
-    pddl_str += f"    (:goal (\n        (at {goal_cell})\n    ))\n)"
+    pddl_str += f"    (:goal (\n        (at {goal_cell})\n    )\n)"
     
     pddl_str += ")\n"
     return pddl_str
@@ -73,9 +73,9 @@ def generate_pddl(maze):
 
 
 def main():
-    grid_size = 100
+    grid_size = 20
     m = maze(grid_size, grid_size)
-    m.CreateMaze()
+    m.CreateMaze(loopPercent=100)
     # Set the agent's start position (e.g., top-left corner)
     a = agent(m, 1, 1)
 
