@@ -2,7 +2,7 @@ from queue import PriorityQueue
 from pddl_parser import *
 import re
 
-right_of, left_of, is_above, is_underneath, start, goal = parse_pddl_file('PDDL pathfinding/5x5_pathfinding.pddl')
+right_of, left_of, is_above, is_underneath, start, goal = parse_pddl_file('PDDL pathfinding/problem.pddl')
 
 def h(cell1, cell2):
     # Extract x and y coordinates using regular expressions
@@ -59,18 +59,19 @@ def aStar():
     max_row = max_col = 0
 
 # Iterate over the adjacency relations to find the maximum row and column indices
-    for cell in right_of.keys():
-        # Extract row and column indices using regular expressions
-        row_match = re.search(r'x(\d+)', cell)
-        col_match = re.search(r'y(\d+)', cell)
-        
-        if row_match and col_match:
-            row = int(row_match.group(1))
-            col = int(col_match.group(1))
-            max_row = max(max_row, row)
-            max_col = max(max_col, col)
+    all_cells = set(right_of.keys()) | set(left_of.keys()) | set(is_above.keys()) | set(is_underneath.keys())
 
-    grid_size = (max_row + 1)
+    max_row = max_col = 0
+
+    # Iterate over the combined set of cell identifiers
+    for cell in all_cells:
+        col = int(re.search(r'x(\d+)', cell).group(1))
+        row = int(re.search(r'y(\d+)', cell).group(1))
+        max_row = max(max_row, row)
+        max_col = max(max_col, col)
+
+    # Adjust grid_size based on the maximum row and column values found
+    grid_size = max(max_row, max_col) + 1
 
     # Initialize g_score and f_score dictionaries in file input formatting
     g_score = {f"cellx{row}y{col}": float('inf') for row in range(grid_size) for col in range(grid_size)}
