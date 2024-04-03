@@ -10,7 +10,7 @@ def parse_pddl_file(file_path):
     with open(file_path, 'r') as file:
         for line in file:
             # Right adjacency rules
-            right_of_matches = re.findall(rf'\s*\(right-of (\S+) (\S+)\)', line)
+            right_of_matches = re.findall(r'\s*\(right-of (\S+) (\S+)\)', line)
             if right_of_matches:
                 for match in right_of_matches:
                     right_of[match[1]] = match[0]
@@ -34,14 +34,17 @@ def parse_pddl_file(file_path):
                     is_underneath[match[1]] = match[0]
 
             # (at X) matches
-            is_at_matches = re.findall(rf'\s*\(at cell(\d\d)\)', line)
+            is_at_matches = re.findall(rf'\s*\(at cellx(\d+)y(\d+)\)', line)
             if is_at_matches:
                 for match in is_at_matches:
-                    is_at.append('cell' + match)
-            
+                    x, y = match
+                    cell_name = 'cellx' + x + 'y' + y
+                    is_at.append(cell_name)
+        
         start = is_at[0]
         goal = is_at[1]
 
     return right_of, left_of, is_above, is_underneath, start, goal
+
 
 
