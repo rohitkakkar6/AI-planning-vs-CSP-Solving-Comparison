@@ -73,7 +73,7 @@ def generate_pddl(maze):
 
 
 def main():
-    grid_size = 20
+    grid_size = 100
     m = maze(grid_size, grid_size)
     m.CreateMaze(loopPercent=100)
     # Set the agent's start position (e.g., top-left corner)
@@ -94,7 +94,7 @@ def main():
     with open(pddl_file_path, 'w') as file:
         file.write(pddl_content)
 
-    # m.run() # Used to visualise maze
+    m.run() # Used to visualise maze
 
 if __name__ == "__main__":
     main()
