@@ -9,6 +9,24 @@ def is_adjacent(pos1, pos2):
 def not_visited(pos, visited):
     return pos not in visited
 
+def is_move_allowed(maze_map, current, next):
+    # (y,x to x,y and 1,1 to 0,0)
+    maze_current = (current[1] + 1, current[0] + 1)
+    maze_next = (next[1] + 1, next[0] + 1)
+
+    direction = (maze_next[0] - maze_current[0], maze_next[1] - maze_current[1])
+    
+    if direction == (1, 0):
+        return 'S' in maze_map[maze_current] and maze_map[maze_current]['S'] == 1
+    elif direction == (-1, 0):
+        return 'N' in maze_map[maze_current] and maze_map[maze_current]['N'] == 1
+    elif direction == (0, 1):
+        return 'E' in maze_map[maze_current] and maze_map[maze_current]['E'] == 1
+    elif direction == (0, -1):
+        return 'W' in maze_map[maze_current] and maze_map[maze_current]['W'] == 1
+    
+    return False
+
 def select_unassigned_variable(assignment, steps):
     for step in steps:
         if step not in assignment:
@@ -16,7 +34,7 @@ def select_unassigned_variable(assignment, steps):
     return None
 
 # Consistency checker
-def is_consistent(step, pos, assignment, is_adjacent, visited):
+def is_consistent(step, pos, assignment, visited, mazeGrid):
     if not not_visited(pos, visited):
         return False
     
@@ -26,7 +44,8 @@ def is_consistent(step, pos, assignment, is_adjacent, visited):
             previous_step = f"step_{previous_step_number}"
             if previous_step in assignment:
                 last_step_pos = assignment[previous_step]
-                if not is_adjacent(last_step_pos, pos):
+                # Check if the move is adjacent and not blocked by a wall
+                if not is_adjacent(last_step_pos, pos) or not is_move_allowed(mazeGrid, last_step_pos, pos):
                     return False
     return True
 
@@ -56,7 +75,7 @@ def goal_test(assignment, steps, goal_pos):
         visited.add(assignment[step])
     return True
 
-def backtrack(assignment, steps, domains, visited, goal_pos):
+def backtrack(assignment, steps, domains, visited, goal_pos, mazeGrid):
     if len(assignment) == len(steps) and goal_test(assignment, steps, goal_pos):
         return assignment
     
@@ -65,35 +84,28 @@ def backtrack(assignment, steps, domains, visited, goal_pos):
         return None
     
     for pos in domains[step]:
-        if is_consistent(step, pos, assignment, is_adjacent, visited):
+        if is_consistent(step, pos, assignment, visited, mazeGrid):
             assign(step, pos, assignment, visited)
-            result = backtrack(assignment, steps, domains, visited, goal_pos)
+            result = backtrack(assignment, steps, domains, visited, goal_pos, mazeGrid)
             if result is not None:
                 return result
             unassign(step, assignment, visited)
     return None
 
-def iterative_deepening(start_pos, goal_pos, max_depth=20):
+def iterative_deepening(start_pos, goal_pos, grid_size, mazeGrid, max_depth=30):
     for path_length in range(1, max_depth + 1):
         steps = [f"step_{i}" for i in range(1, path_length + 1)]
+        grid_positions = [(x, y) for x in range(grid_size) for y in range(grid_size)]
         domains = {step: grid_positions for step in steps}
         visited = [start_pos]
         assignment = {steps[0]: start_pos}
         
-        solution = backtrack(assignment, steps, domains, visited, goal_pos)
+        solution = backtrack(assignment, steps, domains, visited, goal_pos, mazeGrid)
         if solution:
             print(f"Solution found with path length {path_length}:", solution)
             return solution
     print("No solution found within the maximum path length.")
     return None
-
-
-start_pos = (1, 2)
-goal_pos = (4,4)
-
-grid_positions = [(x, y) for x in range(5) for y in range(5)]
-
-solution = iterative_deepening(start_pos, goal_pos)
 
 
 start_pos = (0, 0)
