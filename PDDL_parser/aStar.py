@@ -10,16 +10,16 @@ def h(cell1, cell2):
     x2, y2 = map(int, re.findall(r'(\d+)', cell2))
     return abs(x1 - x2) + abs(y1 - y2)
 
-def validifyRight(cell1, cell2):
+def validifyRight(cell1, cell2, right_of):
     return right_of.get(cell1) == cell2
 
-def validifyLeft(cell1, cell2):
+def validifyLeft(cell1, cell2, left_of):
     return left_of.get(cell1) == cell2
 
-def validifyUp(cell1, cell2):
+def validifyUp(cell1, cell2, is_above):
     return is_above.get(cell1) == cell2
 
-def validifyDown(cell1, cell2):
+def validifyDown(cell1, cell2, is_underneath):
     return is_underneath.get(cell1) == cell2
 
 def moveRight(cell):
@@ -34,48 +34,31 @@ def moveUp(cell):
 def moveDown(cell):
     return is_underneath.get(cell)
 
-def generate_successors(current_cell):
+def generate_successors(current_cell, right_of, left_of, is_above, is_underneath):
     successors = []
     
     right_cell = moveRight(current_cell)
-    if right_cell and validifyRight(current_cell, right_cell):
+    if right_cell and validifyRight(current_cell, right_cell, right_of):
         successors.append(right_cell)
 
     left_cell = moveLeft(current_cell)
-    if left_cell and validifyLeft(current_cell, left_cell):
+    if left_cell and validifyLeft(current_cell, left_cell, left_of):
         successors.append(left_cell)
 
     up_cell = moveUp(current_cell)
-    if up_cell and validifyUp(current_cell, up_cell):
+    if up_cell and validifyUp(current_cell, up_cell, is_above):
         successors.append(up_cell)
 
     down_cell = moveDown(current_cell)
-    if down_cell and validifyDown(current_cell, down_cell):
+    if down_cell and validifyDown(current_cell, down_cell, is_underneath):
         successors.append(down_cell)
 
     return successors
 
-def aStar():
-    max_row = max_col = 0
-
-# Iterate over the adjacency relations to find the maximum row and column indices
-    all_cells = set(right_of.keys()) | set(left_of.keys()) | set(is_above.keys()) | set(is_underneath.keys())
-
-    max_row = max_col = 0
-
-    # Iterate over the combined set of cell identifiers
-    for cell in all_cells:
-        col = int(re.search(r'x(\d+)', cell).group(1))
-        row = int(re.search(r'y(\d+)', cell).group(1))
-        max_row = max(max_row, row)
-        max_col = max(max_col, col)
-
-    # Adjust grid_size based on the maximum row and column values found
-    grid_size = max(max_row, max_col) + 1
-
-    # Initialize g_score and f_score dictionaries in file input formatting
-    g_score = {f"cellx{row}y{col}": float('inf') for row in range(grid_size) for col in range(grid_size)}
-    f_score = {f"cellx{row}y{col}": float('inf') for row in range(grid_size) for col in range(grid_size)}
+def aStar(right_of, left_of, is_above, is_underneath, start, goal, grid_size, top_corner):
+    x_min, y_min = top_corner
+    g_score = {f"cellx{x}y{y}": float('inf') for x in range(x_min, x_min + grid_size) for y in range(y_min, y_min + grid_size)}
+    f_score = {f"cellx{x}y{y}": float('inf') for x in range(x_min, x_min + grid_size) for y in range(y_min, y_min + grid_size)}
 
     # Set the start cell's g_score to 0 and its f_score to the heuristic estimate to the goal
     g_score[start] = 0
@@ -92,7 +75,7 @@ def aStar():
         if current_cell == goal:
             break
         
-        for child_cell in generate_successors(current_cell):
+        for child_cell in generate_successors(current_cell, right_of, left_of, is_above, is_underneath):
             temp_g_score = g_score[current_cell] + 1
             temp_f_score = temp_g_score + h(child_cell, goal)
 
