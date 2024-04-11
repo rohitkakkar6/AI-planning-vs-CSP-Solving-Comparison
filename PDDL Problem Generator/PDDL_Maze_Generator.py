@@ -73,7 +73,7 @@ def generate_pddl(maze):
 
 
 def main():
-    grid_size = 100
+    grid_size = 9
     m = maze(grid_size, grid_size)
     m.CreateMaze(loopPercent=100)
     # Set the agent's start position (e.g., top-left corner)
