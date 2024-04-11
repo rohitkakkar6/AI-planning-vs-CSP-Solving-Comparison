@@ -1,6 +1,15 @@
 from pyamaze import maze, agent
 
 def generate_pddl(maze):
+    """
+    Generates PDDL representation of a maze problem.
+
+    Args:
+        maze (dict): A dictionary representing the maze map.
+
+    Return:
+        str: A string representing the PDDL domain definition for the maze problem.
+    """
     pddl_str = "(define (problem maze-problem)\n    (:domain maze)\n"
 
     # Objects
@@ -67,9 +76,6 @@ def generate_pddl(maze):
     
     pddl_str += ")\n"
     return pddl_str
-
-
-
 
 
 def main():

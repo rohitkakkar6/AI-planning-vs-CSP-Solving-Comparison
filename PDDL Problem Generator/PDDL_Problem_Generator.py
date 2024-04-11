@@ -7,6 +7,12 @@ class PDDLProblemGenerator:
         self.initial_position = None
 
     def generate_objects(self):
+        """
+        Generates PDDL (Planning Domain Definition Language) objects representing positions in the grid.
+
+        Return:
+            str: A string representing PDDL objects for positions in the grid.
+        """
         objects = ''
         for i in range(self.grid_size):
             for j in range(self.grid_size):
@@ -14,6 +20,12 @@ class PDDLProblemGenerator:
         return objects
 
     def generate_initial_state(self):
+        """
+        Generates the initial state representation for the PDDL problem.
+
+        Return:
+            str: A string representing the initial state for the PDDL problem.
+        """
         initial_state = ''
         # Randomly select a cell for the initial position
         i_start, j_start = random.randint(0, self.grid_size-1), random.randint(0, self.grid_size-1)
@@ -40,7 +52,12 @@ class PDDLProblemGenerator:
 
 
     def generate_goal_state(self):
-        # Randomly select a cell for the goal position
+        """
+        Generates the goal state representation for the PDDL problem.
+
+        Returns:
+            str: A string representing the goal state for the PDDL problem.
+        """
         i_start, j_start = self.initial_position
         while True:
             i_goal, j_goal = random.randint(0, self.grid_size-1), random.randint(0, self.grid_size-1)
@@ -50,6 +67,12 @@ class PDDLProblemGenerator:
         return goal_state
 
     def generate_pddl(self, file_path):
+        """
+        Generates a PDDL (Planning Domain Definition Language) file based on the maze problem.
+
+        Args:
+            file_path (str): The path to save the generated PDDL file.
+        """
         with open(file_path, 'w') as f:
             f.write(f'(define (problem {self.problem_name})\n')
             f.write('  (:domain pathfinding)\n')

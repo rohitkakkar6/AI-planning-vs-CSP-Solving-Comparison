@@ -32,9 +32,31 @@ class Chunk:
         self.paths[entry][exit] = {'path': path, 'cost': cost}
 
 def cell_to_chunk(x, y, chunk_size=3):
+    """
+    Converts cell coordinates to chunk coordinates.
+
+    Args:
+        x (int): The x-coordinate of the cell.
+        y (int): The y-coordinate of the cell.
+        chunk_size (int, optional): The size of each chunk. Defaults to 3.
+
+    Return:
+        tuple: The chunk coordinates corresponding to the given cell coordinates.
+    """
     return (x // chunk_size, y // chunk_size)
 
 def initialize_chunks(max_x, max_y, chunk_size=3):
+    """
+    Initializes chunks for a grid map.
+
+    Args:
+        max_x (int): The maximum x-coordinate of the grid map.
+        max_y (int): The maximum y-coordinate of the grid map.
+        chunk_size (int, optional): The size of each chunk. Set to 3.
+
+    Return:
+        dict: A dictionary mapping chunk coordinates to Chunk objects.
+    """
     chunk_map = {}
     for x in range(0, max_x + 1, chunk_size):
         for y in range(0, max_y + 1, chunk_size):
@@ -43,6 +65,17 @@ def initialize_chunks(max_x, max_y, chunk_size=3):
     return chunk_map
 
 def identify_and_store_entry_exit_points(chunk_map, right_of, left_of, is_above, is_underneath, chunk_size=3):
+    """
+    Identifies and stores entry and exit points for each chunk based on adjacency relationships from pddl file.
+
+    Args:
+        chunk_map (dict): A dictionary mapping chunk coordinates to Chunk objects.
+        right_of (dict): A dictionary representing right-of relationships between cells.
+        left_of (dict): A dictionary representing left-of relationships between cells.
+        is_above (dict): A dictionary representing is-above relationships between cells.
+        is_underneath (dict): A dictionary representing is-underneath relationships between cells.
+        chunk_size (int, optional): The size of each chunk. Set to 3.
+    """
     for chunk_coord, chunk in chunk_map.items():
         for cell in chunk.cells:
             col, row = map(int, re.findall(r'\d+', cell))
@@ -63,6 +96,19 @@ def identify_and_store_entry_exit_points(chunk_map, right_of, left_of, is_above,
                             chunk.add_entry_point((col, row), direction)
 
 def filter_adjacencies_for_chunk(chunk, right_of, left_of, is_above, is_underneath):
+    """
+    Filters adjacent cell relationships to include only those within the given chunk.
+
+    Args:
+        chunk (Chunk): The Chunk object representing the chunk.
+        right_of (dict): A dictionary representing right-of relationships between cells.
+        left_of (dict): A dictionary representing left-of relationships between cells.
+        is_above (dict): A dictionary representing is-above relationships between cells.
+        is_underneath (dict): A dictionary representing is-underneath relationships between cells.
+
+    Returns:
+        dict: A dictionary containing filtered adjacent cell relationships within the chunk.
+    """
     filtered = {
         "right_of": {},
         "left_of": {},
@@ -81,16 +127,41 @@ def filter_adjacencies_for_chunk(chunk, right_of, left_of, is_above, is_undernea
     return filtered
 
 def localise_cell(cell, offset_x, offset_y):
-        parts = cell.split('x')[1].split('y')
-        cell_x, cell_y = int(parts[0]), int(parts[1])
+    """
+    Localises the cell coordinates by applying the given offsets.
+
+    Args:
+        cell (str): The coordinate of the cell in the format 'cellx{x}y{y}'.
+        offset_x (int): The offset to be applied to the x-coordinate.
+        offset_y (int): The offset to be applied to the y-coordinate.
+
+    Returns:
+        str: The localized coordinate of the cell in the format 'cellx{x}y{y}'.
+    """
+    parts = cell.split('x')[1].split('y')
+    cell_x, cell_y = int(parts[0]), int(parts[1])
         
-        local_x = cell_x - offset_x
-        local_y = cell_y - offset_y
+    local_x = cell_x - offset_x
+    local_y = cell_y - offset_y
         
-        return f"cellx{local_x}y{local_y}"
+    return f"cellx{local_x}y{local_y}"
 
 def localise(chunk, entry, exit, right_adj, left_adj, above_adj, under_adj):
-    
+    """
+    Localises chunk coordinates, entry and exit points, and adjacency dictionaries based on chunk offsets.
+
+    Args:
+        chunk (tuple): The coordinates of the chunk.
+        entry (tuple): The coordinates of the entry point.
+        exit (tuple): The coordinates of the exit point.
+        right_adj (dict): A dictionary representing right-of relationships between cells.
+        left_adj (dict): A dictionary representing left-of relationships between cells.
+        above_adj (dict): A dictionary representing is-above relationships between cells.
+        under_adj (dict): A dictionary representing is-underneath relationships between cells.
+
+    Returns:
+        tuple: A tuple containing localised adjacency dictionaries, localised entry and exit points.
+    """
     x, y = chunk
     offset_x = x * 3
     offset_y = y * 3
@@ -114,10 +185,34 @@ def localise(chunk, entry, exit, right_adj, left_adj, above_adj, under_adj):
     return localized_right_adjacency, localized_left_adjacency, localized_above_adjacency, localized_under_adjacency, local_exit, local_entry
 
 def process_adjacency(direction, cells):
-        sorted_cells = sorted(cells.items(), key=lambda item: item[0])
-        return [f"{direction}-{key}-{value}" for key, value in sorted_cells]
+    """
+    Processes adjacency relationships for a given direction.
+
+    Args:
+        direction (str): The direction of adjacency relationships (e.g., 'right', 'left', 'above', 'under').
+        cells (dict): A dictionary representing adjacency relationships between cells.
+
+    Return:
+        list: A list containing formatted adjacency relationships for the given direction.
+    """
+    sorted_cells = sorted(cells.items(), key=lambda item: item[0])
+    return [f"{direction}-{key}-{value}" for key, value in sorted_cells]
 
 def generate_lookup_key(right_of, left_of, is_above, is_underneath, entry_points, exit_points):
+    """
+    Generates a lookup key based on adjacency relationships, entry points, and exit points.
+
+    Args:
+        right_of (dict): A dictionary representing right-of relationships between cells.
+        left_of (dict): A dictionary representing left-of relationships between cells.
+        is_above (dict): A dictionary representing is-above relationships between cells.
+        is_underneath (dict): A dictionary representing is-underneath relationships between cells.
+        entry_points (list): A list of entry points.
+        exit_points (list): A list of exit points.
+
+    Returns:
+        str: A lookup key string.
+    """
     adjacencies_str_parts = []
     adjacencies_str_parts.extend(process_adjacency("right_of", right_of))
     adjacencies_str_parts.extend(process_adjacency("left_of", left_of))
@@ -133,6 +228,16 @@ def generate_lookup_key(right_of, left_of, is_above, is_underneath, entry_points
     return lookup_key
 
 def globalise_path(chunk_coord, path):
+    """
+    Globalises a path by applying the chunk's offsets.
+
+    Args:
+        chunk_coord (tuple): The coordinates of the chunk.
+        path (list): The path to be globalized.
+
+    Returns:
+        list: A list containing globalised cells representing the path.
+    """
     globalised_path = []
     x, y = chunk_coord
     offset_x = x * 3
@@ -150,6 +255,16 @@ def globalise_path(chunk_coord, path):
     return globalised_path
 
 def localise_path(chunk_coord, path):
+    """
+    Localises a path by applying the chunk's offsets.
+
+    Args:
+        chunk_coord (tuple): The coordinates of the chunk.
+        path (list): The path to be localised.
+
+    Returns:
+        list: A list containing localised cells representing the path.
+    """
     localised_path = []
     x, y = chunk_coord
     offset_x = x * 3
@@ -168,6 +283,17 @@ def localise_path(chunk_coord, path):
 
 
 def calculate_paths_for_chunk(chunk, chunk_coord, right_of, left_of, is_above, is_underneath):
+    """
+    Calculates paths for the given chunk based on its adjacency relationships and entry/exit points.
+
+    Args:
+        chunk (Chunk): The chunk for which paths are to be calculated.
+        chunk_coord (tuple): The coordinates of the chunk.
+        right_of (dict): A dictionary representing right-of relationships between cells.
+        left_of (dict): A dictionary representing left-of relationships between cells.
+        is_above (dict): A dictionary representing is-above relationships between cells.
+        is_underneath (dict): A dictionary representing is-underneath relationships between cells.
+    """
     filtered_adjacencies = filter_adjacencies_for_chunk(chunk, right_of, left_of, is_above, is_underneath)
     entry_points = chunk.get_entry_points()
     exit_points = chunk.get_exit_points()
@@ -196,6 +322,16 @@ def calculate_paths_for_chunk(chunk, chunk_coord, right_of, left_of, is_above, i
                     chunk.add_path(entry, exit, path, cost)
 
 def create_chunk_graph(chunk_map):
+    """
+    Creates a graph representing the connections between chunks and their paths.
+
+    Args:
+        chunk_map (dict): A dictionary mapping chunk coordinates to Chunk objects.
+
+    Returns:
+        dict: A dictionary representing the chunk graph, with chunk coordinates as keys, and dictionaries representing
+        paths from entry to exit points as values.
+    """
     graph = {}
     for chunk_coord, chunk in chunk_map.items():
         graph[chunk_coord] = {}
@@ -228,6 +364,17 @@ def adjacent_cell_and_chunk(path, direction, chunk):
 
 
 def adjacent_path(adj_cell, adj_chunk, graph):
+    """
+    Determines the adjacent cell and its corresponding chunk coordinates based on the given path, direction, and chunk.
+
+    Args:
+        path (list): The path from entry to exit points.
+        direction (str): The direction of movement ('up', 'down', 'left', 'right').
+        chunk (tuple): The coordinates of the chunk.
+
+    Return:
+        tuple: A tuple containing the adjacent cell and its corresponding chunk coordinates.
+    """
     match = re.match(r'cellx(\d+)y(\d+)', adj_cell)
     paths = []
     x, y = map(int, match.groups())
@@ -244,6 +391,15 @@ def adjacent_path(adj_cell, adj_chunk, graph):
 
 
 def backtrack(graph):
+    """
+    Performs a breadth first search to find all possible paths from the bottom right chunk to the top left chunk in the given graph.
+
+    Args:
+        graph (dict): The graph representing the chunks and their connections.
+
+    Return:
+        list: A list of complete paths from the starting chunk to the goal chunk.
+    """
     max_chunk_coord = max(graph.keys(), key=lambda x: (x[0], x[1]))
     x, y = max_chunk_coord
     x = x // 2 + 1 
@@ -306,21 +462,6 @@ def backtrack(graph):
     
     return complete_paths
 
-def target_path(paths, target):
-    # Search for complete paths that contain the target anywhere within them
-    target_paths = [path for path in paths if target in path and path[-1] == "cellx0y0"]
-    
-    if target_paths:
-        # extract the part of the path from the target onwards
-        shortest_path_containing_target = min(target_paths, key=len)
-        target_index = shortest_path_containing_target.index(target)
-        
-        # return the part of the path from the target onwards
-        path_from_target = shortest_path_containing_target[target_index:]
-        return path_from_target
-    else:
-        return None
-
 
 right_of, left_of, is_above, is_underneath, start, goal = parse_pddl_file('PDDL pathfinding/problem.pddl')
 all_cells = set(right_of.keys()) | set(left_of.keys()) | set(is_above.keys()) | set(is_underneath.keys())
@@ -337,7 +478,6 @@ identify_and_store_entry_exit_points(chunk_map, right_of, left_of, is_above, is_
 first_chunk_coord = (0, 0)
 if first_chunk_coord in chunk_map:
     chunk_map[first_chunk_coord].add_entry_point((0, 0), 'manual')
-# Finding the coordinates of the last (bottom-right) chunk
 max_chunk_coord = max(chunk_map.keys())
 max_chunk_x, max_chunk_y = max_chunk_coord
 max_inside_chunk_x = (max_chunk_x * 3) + (3 - 1)

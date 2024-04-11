@@ -2,15 +2,45 @@ from pyamaze import maze, agent
 
 # Constraints
 def is_adjacent(pos1, pos2):
+    """
+    Determines if two positions on a grid are adjacent to each other.
+
+    Args:
+        pos1 (tuple): A tuple representing the coordinates of the first position in the format (row, column).
+        pos2 (tuple): A tuple representing the coordinates of the second position in the format (row, column).
+
+    Return:
+        bool: True if the positions are adjacent, False otherwise.
+    """
     row_diff = abs(pos1[0] - pos2[0])
     col_diff = abs(pos1[1] - pos2[1])
     return (row_diff == 1 and col_diff == 0) or (row_diff == 0 and col_diff == 1)
 
 def not_visited(pos, visited):
+    """
+    Checks if a position has not been visited before.
+
+    Args:
+        pos (tuple): A tuple representing the coordinates of the position to check.
+        visited (list): A list of tuples representing positions that have already been visited.
+
+    Return:
+        bool: True if the position has not been visited, False otherwise.
+    """
     return pos not in visited
 
 def is_move_allowed(maze_map, current, next):
-    # (y,x to x,y and 1,1 to 0,0)
+    """
+    Determines if a move from the current position to the next position is allowed in a maze.
+
+    Args:
+        maze_map (dict): A dictionary representing the maze map.
+        current (tuple): A tuple representing the current position in the format (x, y).
+        next (tuple): A tuple representing the next position in the format (x, y).
+
+    Return:
+        bool: True if the move is allowed, False otherwise.
+    """
     maze_current = (current[1] + 1, current[0] + 1)
     maze_next = (next[1] + 1, next[0] + 1)
 
@@ -28,6 +58,16 @@ def is_move_allowed(maze_map, current, next):
     return False
 
 def select_unassigned_variable(assignment, steps):
+    """
+    Selects an unassigned variable from a list of steps.
+
+    Args:
+        assignment (list): A list of steps representing variables that have already been assigned.
+        steps (list): A list of steps representing all possible variables.
+
+    Return:
+        Any: An unassigned variable if found, otherwise None.
+    """
     for step in steps:
         if step not in assignment:
             return step
@@ -35,6 +75,19 @@ def select_unassigned_variable(assignment, steps):
 
 # Consistency checker
 def is_consistent(step, pos, assignment, visited, mazeGrid):
+    """
+    Checks if assigning a position to a step is consistent with the current assignment and maze conditions.
+
+    Args:
+        step (str): A string representing the current step.
+        pos (tuple): A tuple representing the coordinates of the position to check in the maze.
+        assignment (dict): A dictionary representing the current assignment of steps to positions.
+        visited (list): A list of tuples representing positions that have already been visited.
+        mazeGrid (dict): A dictionary representing the maze map.
+
+    Return:
+        bool: True if assigning the position to the step is consistent, False otherwise.
+    """
     if not not_visited(pos, visited):
         return False
     
@@ -50,15 +103,50 @@ def is_consistent(step, pos, assignment, visited, mazeGrid):
     return True
 
 def assign(step, pos, assignment, visited):
+    """
+    Assigns a position to a step and updates the assignment and visited lists.
+
+    Args:
+        step (str): A string representing the step to assign the position to.
+        pos (tuple): A tuple representing the coordinates of the position to assign.
+        assignment (dict): A dictionary representing the current assignment of steps to positions.
+        visited (list): A list of tuples representing positions that have already been visited.
+
+    Return:
+        None
+    """
     assignment[step] = pos
     visited.append(pos)
 
 def unassign(step, assignment, visited):
+    """
+    Unassigns a position from a step and updates the assignment and visited lists if the step is assigned.
+
+    Args:
+        step (str): A string representing the step to assign the position to.
+        pos (tuple): A tuple representing the coordinates of the position to assign.
+        assignment (dict): A dictionary representing the current assignment of steps to positions.
+        visited (list): A list of tuples representing positions that have already been visited.
+
+    Return:
+        None
+    """
     if step in assignment:
         pos = assignment.pop(step)
         visited.remove(pos)
 
 def goal_test(assignment, steps, goal_pos):
+    """
+    Checks if the current assignment satisfies the goal condition.
+
+    Args:
+        assignment (dict): A dictionary representing the current assignment of steps to positions.
+        steps (list): A list of steps representing the order in which positions are visited.
+        goal_pos (tuple): A tuple representing the goal position.
+
+    Return:
+        bool: True if the current assignment satisfies the goal condition, False otherwise.
+    """
     if len(assignment) != len(steps) or assignment[steps[-1]] != goal_pos:
         return False
     
@@ -76,6 +164,20 @@ def goal_test(assignment, steps, goal_pos):
     return True
 
 def backtrack(assignment, steps, domains, visited, goal_pos, mazeGrid):
+    """
+    Uses backtracking to find a solution to the maze traversal problem.
+
+    Args:
+        assignment (dict): A dictionary representing the current assignment of steps to positions.
+        steps (list): A list of steps representing the order in which positions are visited.
+        domains (dict): A dictionary representing the domains of each step, i.e., the possible positions they can have.
+        visited (list): A list of tuples representing positions that have already been visited.
+        goal_pos (tuple): A tuple representing the goal position.
+        mazeGrid (dict): A dictionary representing the maze map.
+
+    Return:
+        dict or None: A dictionary representing the assignment if a solution is found, otherwise None.
+    """
     if len(assignment) == len(steps) and goal_test(assignment, steps, goal_pos):
         return assignment
     
@@ -93,6 +195,19 @@ def backtrack(assignment, steps, domains, visited, goal_pos, mazeGrid):
     return None
 
 def iterative_deepening(start_pos, goal_pos, grid_size, mazeGrid, max_depth=30):
+    """
+    Performs iterative deepening search to find a solution to the maze traversal problem.
+
+    Args:
+        start_pos (tuple): A tuple representing the starting position.
+        goal_pos (tuple): A tuple representing the goal position.
+        grid_size (int): The size of the grid (assumed to be square).
+        mazeGrid (dict): A dictionary representing the maze map.
+        max_depth (int, optional): The maximum depth to explore during iterative deepening.
+
+    Return:
+        dict or None: A dictionary representing the assignment if a solution is found, otherwise None.
+    """
     for path_length in range(1, max_depth + 1):
         steps = [f"step_{i}" for i in range(1, path_length + 1)]
         grid_positions = [(x, y) for x in range(grid_size) for y in range(grid_size)]
@@ -114,7 +229,7 @@ goal_pos = (4,4)
 grid_size = 5
 m = maze(grid_size, grid_size)
 m.CreateMaze()
-# Set the agent's start position (e.g., top-left corner)
+# Set the agent's start position
 a = agent(m, 1, 1)
 
 # Set the maze's goal (end point) explicitly
