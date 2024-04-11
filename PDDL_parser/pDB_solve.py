@@ -64,7 +64,7 @@ def bfs(graph, all_paths):
     return "Path not found"
 
 
-filename = 'paths.pkl'
+filename = 'PDDL_parser/paths.pkl'
 
 with open(filename, 'rb') as file:
     all_paths = pickle.load(file)
