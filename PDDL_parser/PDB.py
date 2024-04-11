@@ -2,6 +2,8 @@ from collections import deque
 from pddl_parser import *
 from aStar import *
 import re
+import sys
+import pickle
 
 class Chunk:
     def __init__(self):
@@ -231,7 +233,6 @@ def adjacent_path(adj_cell, adj_chunk, graph):
     paths = []
     x, y = map(int, match.groups())
     cell = (x, y)
-    # Retrieve the adjacent chunk's data from the graph; if not found, default to an empty dict
     chunk_data = graph.get(adj_chunk, {})
     
     for entry, exits in chunk_data.items():
@@ -240,13 +241,92 @@ def adjacent_path(adj_cell, adj_chunk, graph):
                 adj_info = adjacent_cell_and_chunk(details['path'], details['direction'], adj_chunk)
                 paths.append((details['path'], adj_info, details['direction']))
     
-    # Return the list of paths and costs
     return paths
 
 
 def backtrack(graph):
     max_chunk_coord = max(graph.keys(), key=lambda x: (x[0], x[1]))
+    x, y = max_chunk_coord
+    x = x // 2 + 1 
+    y = y // 2 + 1
+    start = (x, y)
+
+    start_paths = []
+    queue = deque(start_paths)
+    all_paths = []
+    complete_paths = []
+
+    for entry, exits in graph[start].items():
+        for exit, details in exits.items():
+            current_path_info = []
+            direction = details['direction']
+            path = details['path']
+            reversed_path = path[::-1]
+            direction = details['direction']
+            start_paths.append((start, reversed_path, direction))
+            queue = deque(start_paths)
+
+    while queue:
+        chunk, path, direction = queue.popleft()
+        current_step = path[-1]
+        current_chunk = chunk
+
+        # Check if the current step is the goal
+        if current_chunk == (0, 0):
+            final_cell, final_chunk = adjacent_cell_and_chunk(path[::-1], direction, chunk)
+
+            if final_cell:
+                adjacent = adjacent_path(final_cell, current_chunk, graph)
+                if adjacent:
+                    for adj_path, (new_adj_cell, new_adj_chunk), adj_direction in adjacent:
+                        path = path + adj_path[::-1]
+
+            all_paths.append(path)
+            continue
+        
+        adj_cell, chunknew = adjacent_cell_and_chunk(path[::-1], direction, chunk)
+        if chunk == (start):
+            chunk = chunknew
+        adj_chunk = chunk
+        if adj_cell is None or adj_chunk is None:
+            continue
+
+        adjacent = adjacent_path(adj_cell, adj_chunk, graph)
+
+        for adj_path, adj_info, adj_direction in adjacent:
+            adj_paths = [adj_path for adj_path, _, _ in adjacent]
+            adj_infos = [adj_info for _, adj_info, _ in adjacent]
+            adj_direction = [adj_direction for _, _, adj_direction in adjacent]
+            new_adj_cell, current_chunk = adj_infos[0]
+            for adj_path, (new_adj_cell, new_adj_chunk), adj_direction in adjacent:
+                new_path = path + adj_path[::-1]
+                queue.append((new_adj_chunk, new_path, adj_direction))
+    for path in all_paths:
+        if path:
+            complete_paths.append(path)
+    
+    return complete_paths
+
+def target_path(paths, target):
+    # Search for complete paths that contain the target anywhere within them
+    target_paths = [path for path in paths if target in path and path[-1] == "cellx0y0"]
+    
+    if target_paths:
+        # extract the part of the path from the target onwards
+        shortest_path_containing_target = min(target_paths, key=len)
+        target_index = shortest_path_containing_target.index(target)
+        
+        # return the part of the path from the target onwards
+        path_from_target = shortest_path_containing_target[target_index:]
+        return path_from_target
+    else:
+        return None
+
+def bfs(graph, all_paths):
+
+    max_chunk_coord = max(graph.keys(), key=lambda x: (x[0], x[1]))
     start = max_chunk_coord
+
     start_paths = []
     queue = deque(start_paths)
     all_paths = []
@@ -262,9 +342,14 @@ def backtrack(graph):
             queue = deque(start_paths)
 
     while queue:
-        chunk, path, direction = queue.popleft()  # Get the current path to extend
-        current_step = path[-1]  # Current step is the last element of the path
-        current_chunk = chunk  # Extract chunk from the current step
+        chunk, path, direction = queue.popleft()
+        current_step = path[-1] 
+        current_chunk = chunk
+
+        target = target_path(all_paths, current_step)
+        if target is not None:
+            print(path + target)
+            sys.exit()
 
         # Check if the current step is the goal
         if current_chunk == (0, 0):
@@ -276,7 +361,7 @@ def backtrack(graph):
                     for adj_path, (new_adj_cell, new_adj_chunk), adj_direction in adjacent:
                         path = path + adj_path[::-1]
 
-            all_paths.append(path)  # Add the complete path to all_paths
+            all_paths.append(path)
             continue
         
         adj_cell, chunknew = adjacent_cell_and_chunk(path[::-1], direction, chunk)
@@ -284,7 +369,7 @@ def backtrack(graph):
             chunk = chunknew
         adj_chunk = chunk
         if adj_cell is None or adj_chunk is None:
-            continue  # No valid adjacency found
+            continue
 
         adjacent = adjacent_path(adj_cell, adj_chunk, graph)
 
@@ -298,27 +383,6 @@ def backtrack(graph):
                 queue.append((new_adj_chunk, new_path, adj_direction))
 
     return all_paths
-
-def target_path(paths, target):
-    target_paths = [path for path in paths if target in path]
-    shortest_path_result = None
-    if target_paths:
-        shortest_length = float('inf')
-        
-        for path in target_paths:
-            if target in path:
-                target_index = path.index(target)
-                path_to_target = path[:target_index + 1]
-                
-                if len(path_to_target) < shortest_length:
-                    shortest_length = len(path_to_target)
-                    shortest_path_result = path_to_target[::-1]
-                
-        cost = len(shortest_path_result)
-        return shortest_path_result, cost
-    else:
-        return None
-
 
 
 right_of, left_of, is_above, is_underneath, start, goal = parse_pddl_file('PDDL pathfinding/problem.pddl')
@@ -348,7 +412,15 @@ for chunk_coord, chunk in chunk_map.items():
 graph = create_chunk_graph(chunk_map)
 
 
+filename = 'paths.pkl'
+
+# Open the file and dump the paths into it
 all_paths = backtrack(graph)
-target = "cellx0y0"
-end_path = target_path(all_paths, target)
-print("Shortest path and its cost:", end_path)
+# with open(filename, 'wb') as file:
+#     print("dumped")
+#     pickle.dump(all_paths, file)
+
+# with open(filename, 'rb') as file:
+#     all_paths = pickle.load(file)
+
+bfs(graph, all_paths)
