@@ -2,7 +2,6 @@ from collections import deque
 from pddl_parser import *
 from aStar import *
 import re
-import sys
 import pickle
 
 class Chunk:
@@ -348,8 +347,7 @@ def bfs(graph, all_paths):
 
         target = target_path(all_paths, current_step)
         if target is not None:
-            print(path + target)
-            sys.exit()
+            return path + target
 
         # Check if the current step is the goal
         if current_chunk == (0, 0):
@@ -423,4 +421,6 @@ all_paths = backtrack(graph)
 # with open(filename, 'rb') as file:
 #     all_paths = pickle.load(file)
 
-bfs(graph, all_paths)
+solution = bfs(graph, all_paths)
+
+print(solution)
