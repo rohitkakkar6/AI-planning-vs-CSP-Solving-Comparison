@@ -90,5 +90,5 @@ class PDDLProblemGenerator:
             f.write(')\n')
 
 
-generator = PDDLProblemGenerator(problem_name='problem-pathfinding', grid_size=3)
-generator.generate_pddl('problem.pddl')
+generator = PDDLProblemGenerator(problem_name='problem-pathfinding', grid_size=5)
+generator.generate_pddl('PDDL pathfinding/testaStar.pddl')
