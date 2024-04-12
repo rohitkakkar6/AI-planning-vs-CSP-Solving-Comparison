@@ -97,3 +97,51 @@ Research A*, start development using python
 Develop manhattan distance heuristic as currently vertical and horizontal movements are allowed so the estimate is more realistic
 
 Develop tests for the heuristic function
+
+March 6, 2024
+
+Research CSP methods for backtracking, constraints, Keep track of AIMA fig 6.5
+
+Successor_generator
+
+March 8, 2024
+
+Look into parsing files
+
+regex?
+
+March 14, 2024
+
+Noticed flaw in problem definition, double digits not accounted for
+
+March 17, 2024
+
+Parser needs accounting for new grid structure
+
+March 22, 2024
+
+Utilise adjacencies to get the max grid size
+
+March 26, 2024
+
+Test backtrack in csp
+
+March 29, 2024
+
+Maze generation possibilty, pyamaze
+
+April 2, 2024
+
+csp: new constraint for cell walls, update consistent and goal
+
+April 6, 2024
+
+Look into new heuristic possibilities/solving techniques
+
+April 9, 2024
+
+Chunking the maze, ipdb? hmax? lmcut? lama?
+
+April 11, 2024
+
+Pickle for storing paths, landmarks?

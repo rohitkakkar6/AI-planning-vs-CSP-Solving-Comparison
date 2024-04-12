@@ -345,6 +345,20 @@ def create_chunk_graph(chunk_map):
     return graph
 
 def adjacent_cell_and_chunk(path, direction, chunk):
+    """
+    Determines the adjacent cell and chunk coordinates based on the current path, direction, and chunk coordinates.
+
+    Args:
+        path (list): A list representing the current path, where the first element is the current cell.
+        direction (str): A string representing the direction of adjacency ('up', 'down', 'left', 'right').
+        chunk (tuple): A tuple representing the coordinates of the current chunk.
+
+    Returns:
+        tuple: A tuple containing the adjacent cell and the coordinates of the chunk it belongs to.
+               The adjacent cell is represented as a string in the format "cellx{cell_x}y{cell_y}".
+               The chunk coordinates are represented as a tuple (chunk_x, chunk_y).
+               Returns (None, None) if the direction is invalid.
+    """
     cell = path[0]
     match = re.match(r'cellx(\d+)y(\d+)', cell)
     
