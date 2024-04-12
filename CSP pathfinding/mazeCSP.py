@@ -194,7 +194,7 @@ def backtrack(assignment, steps, domains, visited, goal_pos, mazeGrid):
             unassign(step, assignment, visited)
     return None
 
-def iterative_deepening(start_pos, goal_pos, grid_size, mazeGrid, max_depth=30):
+def iterative_deepening(start_pos, goal_pos, grid_size, mazeGrid, max_depth=150):
     """
     Performs iterative deepening search to find a solution to the maze traversal problem.
 
@@ -224,9 +224,9 @@ def iterative_deepening(start_pos, goal_pos, grid_size, mazeGrid, max_depth=30):
 
 
 start_pos = (0, 0)
-goal_pos = (4,4)
+goal_pos = (14,14)
 
-grid_size = 5
+grid_size = 15
 m = maze(grid_size, grid_size)
 m.CreateMaze()
 # Set the agent's start position

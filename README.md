@@ -12,5 +12,8 @@ next run pip install z3 in the command line
 use the following command to use the z3 solver
 z3 ./location/to/file.z3
 
-https://youtu.be/iebSY4AQhyA
+Required: Pyamaze
+pip install pyamaze
+
+https://youtu.be/my9SsdPvrSY
 youtube video to follow along ^^
